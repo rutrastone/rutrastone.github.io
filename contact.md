@@ -3,24 +3,10 @@ layout: default
 is_contact: true
 ---
 
-* Email: [foo@xyz.com](mailto:foo@xyz.com)
+* Email: [akulmizev@gmail.com](mailto:akulmizev@gmail.com)
 
-* Phone: [+91-123123](tel:+91-123123)
+* Phone: [+34 666 716 407](tel:+34 666 716 407)
 
----
-
-## Mailing Address
-
-> 221B, Baker Street
->
-> London
->
-> United Kingdom
+* [Scholar](https://scholar.google.nl/citations?user=Cgg6_W0AAAAJ&hl=en&oi=ao)
 
 ---
-
-## Social
-
-1. [Facebook](#)
-2. [Twitter](#)
-3. [Google+](#)
