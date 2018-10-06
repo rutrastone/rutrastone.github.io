@@ -6,7 +6,7 @@ layout: default
 
 <img class="profile-picture" src="gug.jpg">
 
-Hello! I am a computational linguist from Western Massachusetts, USA. I recently graduated from the [EM-LCT](https://lct-master.org/) program, where I spent my first year at the University of Groningen (🇳🇱) and my second year at the the University of the Basque Country (🇪🇸). I wrote my Master's thesis about the utility of multilingual word embeddings in transfer learning, supervised by Eneko Agirre and Gertjan van Noord. In January 2019, I will start a PhD project at Uppsala University (🇸🇪), where I will focus on multilingual Universal Dependency parsing under Joakim Nivre. 
+Hello! I am a computational linguist from Western Massachusetts, USA. I recently graduated from the [EM-LCT](https://lct-master.org/) program, where I spent my first year at the University of Groningen (🇳🇱) and my second year at the the University of the Basque Country (🇪🇸). I wrote my Master's thesis about the utility of multilingual word embeddings in transfer learning, supervised by Eneko Agirre and Gertjan van Noord. In January 2019, I will start a PhD project at Uppsala University (🇸🇪), where I will focus on multilingual Universal Dependency parsing under supervision of Joakim Nivre. 
 
 ## Research Interests
 
