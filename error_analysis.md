@@ -27,3 +27,7 @@ layout: default
 <h3><center>pos-tag</center></h3>
 
 ![postag](postags.png)
+
+<h3><center>dependency relations</center></h3>
+
+![deprel_pr](deprel_pr.png) ![deprel_rc](deprel_rc.png)
