@@ -10,7 +10,7 @@ layout: default
 
 <h3><center>Chinese-GSD</center></h3>
 
-![zh_gsd_plot](imgs/zh_gsd_plot.png
+![zh_gsd_plot](imgs/zh_gsd_plot.png)
 
 <h3><center>English-EWT</center></h3>
 
@@ -38,7 +38,7 @@ layout: default
 
 <h3><center>Japanese-GSD</center></h3>
 
-![fi_tdt_plot](imgs/fi_tdt_plot.png)
+![ja_gsd_plot](imgs/ja_gsd_plot.png)
 
 <h3><center>Korean-GSD</center></h3>
 
