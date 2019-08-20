@@ -1,4 +1,4 @@
-title: Artur Kulmizev
+title: artur kulmizev
 baseurl: "/"
 url: "http://rutrastone.github.io"
 
@@ -15,9 +15,9 @@ sass:
     sass_dir: _sass
 
 nav:
- - name: "About"
+ - name: "about"
    link: "index"
- - name: "CV"
+ - name: "cv"
    link: "ak_cv.pdf"
- - name: "Contact"
+ - name: "contact"
    link: "contact"
