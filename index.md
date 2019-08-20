@@ -4,7 +4,7 @@ layout: default
 
 ## about
 
-<!-- <img class="profile-picture" src="eastside.jpg"> -->
+<img class="profile-picture" src="eastside_red.jpg">
 
 I am a first-year PhD student in computational linguistics at Uppsala University (🇸🇪), supervised by Joakim Nivre and Anders Søgaard. My research interests include multilingual NLP, latent syntax, linguistic typology, and interpretability. Before my PhD, I graduated from the [EM-LCT](https://lct-master.org/) program, where I spent my first year at the University of Groningen (🇳🇱) and my second year at the the University of the Basque Country (🇪🇸). I grew up in Western Massachusetts (🇺🇸).
 
@@ -13,6 +13,7 @@ I am a first-year PhD student in computational linguistics at Uppsala University
 <!-- ## research Interests -->
 
 <!-- In general, I am interested in all things concerning cross-lingual, multi-task, and transfer learning - especially when applied to low-resource languages and scenarios. I am also into multilingual word and sentence representations (embeddings, I guess). On occasion, I dabble in computational sociolinguistics.  -->
+
 
 ---
 
