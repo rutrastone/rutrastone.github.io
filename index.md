@@ -14,6 +14,7 @@ I am a first-year PhD student in computational linguistics at Uppsala University
 
 <!-- In general, I am interested in all things concerning cross-lingual, multi-task, and transfer learning - especially when applied to low-resource languages and scenarios. I am also into multilingual word and sentence representations (embeddings, I guess). On occasion, I dabble in computational sociolinguistics.  -->
 
+---
 
 ## publications
 * A Kulmizev, M de Lhoneux, J Gontrum, E Fano, J Nivre: Deep Contextualized Word Embeddings in Transition-Based and Graph-Based Dependency Parsing -- A Tale of Two Parsers Revisited. Conference on Empirical Methods in Natural Language Processing (EMNLP 2019). Hong Kong.
