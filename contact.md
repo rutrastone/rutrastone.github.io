@@ -7,6 +7,8 @@ is_contact: true
 
 * Phone: [+34 666 716 407](tel:+34 666 716 407)
 
-* [Scholar](https://scholar.google.nl/citations?user=Cgg6_W0AAAAJ&hl=en&oi=ao)
+* Visiting address: Department of Linguistics and Philology. Engelska Parken, Thunbergsvägen 3H. Uppsala, Sweden. 
+
+* Postal address: Box 635. 751 26 Uppsala, Sweden. 
 
 ---
