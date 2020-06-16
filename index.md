@@ -26,25 +26,29 @@ I am a first-year PhD student in computational linguistics at Uppsala University
 
 ## acivities
 
-* June 2020: Participated in IWPT 2020 Shared Task on Parsing into Enhanced Universal Dependencies. 
-* February 2020: Invited talk at 2020 NLPL Winter School, with Joakim Nivre. Skeikampen, Norway. 
-* November 2019: Poster presentation and talk at EMNLP 2019. Hong Kong.
-* October 2019: Attended 1st EurNLP summit. London, England.
-* July 2019: Attended LxMLS 2019. Lisbon, Portugal.
-* July 2019: Attended Reinforcement Learning Summer SCOOL. Lille, France.
-* June 2019: Attended 3rd Google NLP summit. Zurich, Switzerland. 
-* June 2019: Program committee, NoDaLiDa 2019. 
-* February 2019: Attended 2019 NLPL Winter School. Skeikampen, Norway. 
-* November 2018: Poster presentation at EMNLP 2018. Brussels, Belgium.
-* June 2018: Poster presentation at TABU Dag. Groningen, Netherlands.
-* June 2018: Participated in SemEval-2018 Task 1: Affect in Tweets. *Winning group*.
-* June 2018: Participated in SemEval-2018 Task 10: Capturing Discriminative Attributes.
-* May 2018: Poster presentation at LREC 2018. Miyazaki, Japan. 
-* September 2017: Poster presentation at BEA 2017 @ EMNLP 2017. Copenhagen, Denmark.
-* September 2017: Participated in BEA 2017 shared task.
-* July 2017: Attended ESSLLI 2017. Toulouse, France.
-* June 2017: Attended LOT Summer School. Leiden, Netherlands. 
+* **June 2020***: Participated in IWPT 2020 Shared Task on Parsing into Enhanced Universal Dependencies. 
+* **February 2020**: Invited talk at 2020 NLPL Winter School, with Joakim Nivre. Skeikampen, Norway. 
+* **November 2019**: Poster presentation and talk at EMNLP 2019. Hong Kong.
+* **October 2019**: Attended 1st EurNLP summit. London, England.
+* **July 2019**: Attended LxMLS 2019. Lisbon, Portugal.
+* **July 2019**: Attended Reinforcement Learning Summer SCOOL. Lille, France.
+* **June 2019**: Attended 3rd Google NLP summit. Zurich, Switzerland. 
+* **June 2019**: Program committee, NoDaLiDa 2019. 
+* **February 2019**: Attended 2019 NLPL Winter School. Skeikampen, Norway. 
+* **November 2018**: Poster presentation at EMNLP 2018. Brussels, Belgium.
+* **June 2018**: Poster presentation at TABU Dag. Groningen, Netherlands.
+* **June 2018**: Participated in SemEval-2018 Task 1: Affect in Tweets. *Winning group*.
+* **June 2018**: Participated in SemEval-2018 Task 10: Capturing Discriminative Attributes.
+* **May 2018**: Poster presentation at LREC 2018. Miyazaki, Japan. 
+* **September 2017**: Poster presentation at BEA 2017 @ EMNLP 2017. Copenhagen, Denmark.
+* **September 2017**: Participated in BEA 2017 shared task.
+* **July 2017**: Attended ESSLLI 2017. Toulouse, France.
+* **June 2017**: Attended LOT Summer School. Leiden, Netherlands. 
 
+## teaching
+
+* **Advanced Programming**. First period, Spring Term 2020. Master's Programme in Language Technology.
+* **Natural Language Processing**. Second Period, Fall Term 2019. Master's Programme in Language Technology.
 
 <!-- 2. M Abdou, A Kulmizev, JG i Ametllé: [AffecThor at SemEval-2018 Task 1: A cross-linguistic approach to sentiment intensity quantification in tweets](http://www.aclweb.org/anthology/S18-1032); Proceedings of The 12th International Workshop on Semantic Evaluation (2018) -->
 <!-- 3. A Kulmizev, M Abdou, V Ravishankar, M Nissim: [Discriminator at SemEval-2018 Task 10: Minimally Supervised Discrimination](http://www.aclweb.org/anthology/S18-1167); Proceedings of The 12th International Workshop on Semantic Evaluation (2018) -->
