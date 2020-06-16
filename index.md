@@ -18,6 +18,7 @@ I am a first-year PhD student in computational linguistics at Uppsala University
 ---
 
 ## publications
+* A Kulmizev, V Ravishankar, M Abdou, J Nivre: [Do Neural Language Models Show Preferences for Syntactic Formalisms?](https://arxiv.org/pdf/2004.14096.pdf). The 58th Annual Meeting of the Association for Computational Linguistics (ACL 2020). Digital. 
 * A Kulmizev, M de Lhoneux, J Gontrum, E Fano, J Nivre: [Deep Contextualized Word Embeddings in Transition-Based and Graph-Based Dependency Parsing -- A Tale of Two Parsers Revisited](https://arxiv.org/pdf/1908.07397.pdf). Conference on Empirical Methods in Natural Language Processing (EMNLP 2019). Hong Kong.
 * M Abdou, A Kulmizev, F Hill, D Low, A Søgaard: Analysing the Representational Geometry of Neural Language Encoders. Conference on Empirical Methods in Natural Language Processing (EMNLP 2019). Hong Kong.
 * M Abdou, A Kulmizev, V Ravishankar, L Abzianidze, J Bos: [What can we learn from Semantic Tagging?](https://arxiv.org/pdf/1808.09716.pdf). Conference on Empirical Methods in Natural Language Processing (EMNLP 2018). Brussels, Belgium.
