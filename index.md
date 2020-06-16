@@ -20,8 +20,32 @@ I am a first-year PhD student in computational linguistics at Uppsala University
 ## publications
 * A Kulmizev, V Ravishankar, M Abdou, J Nivre: [Do Neural Language Models Show Preferences for Syntactic Formalisms?](https://arxiv.org/pdf/2004.14096.pdf). The 58th Annual Meeting of the Association for Computational Linguistics (ACL 2020). Digital. 
 * A Kulmizev, M de Lhoneux, J Gontrum, E Fano, J Nivre: [Deep Contextualized Word Embeddings in Transition-Based and Graph-Based Dependency Parsing -- A Tale of Two Parsers Revisited](https://arxiv.org/pdf/1908.07397.pdf). Conference on Empirical Methods in Natural Language Processing (EMNLP 2019). Hong Kong.
-* M Abdou, A Kulmizev, F Hill, D Low, A Søgaard: Analysing the Representational Geometry of Neural Language Encoders. Conference on Empirical Methods in Natural Language Processing (EMNLP 2019). Hong Kong.
+* M Abdou, A Kulmizev, F Hill, D Low, A Søgaard: [Higher-order Comparisons of Sentence Encoder Representations](https://arxiv.org/pdf/1909.00303.pdf). Conference on Empirical Methods in Natural Language Processing (EMNLP 2019). Hong Kong.
 * M Abdou, A Kulmizev, V Ravishankar, L Abzianidze, J Bos: [What can we learn from Semantic Tagging?](https://arxiv.org/pdf/1808.09716.pdf). Conference on Empirical Methods in Natural Language Processing (EMNLP 2018). Brussels, Belgium.
+* M Abdou, A Kulmizev, V Ravishankar: [MGAD: Multilingual Generation of Analogy Datasets](https://www.aclweb.org/anthology/L18-1320.pdf). 11th edition of the Language Resources and Evaluation Conference (LREC 2018). Miyazaki, Japan. 
+
+## acivities
+
+* June 2020: Participated in IWPT 2020 Shared Task on Parsing into Enhanced Universal Dependencies. 
+* February 2020: Invited talk at 2020 NLPL Winter School, with Joakim Nivre. Skeikampen, Norway. 
+* November 2019: Poster presentation and talk at EMNLP 2019. Hong Kong.
+* October 2019: Attended 1st EurNLP summit. London, England.
+* July 2019: Attended LxMLS 2019. Lisbon, Portugal.
+* July 2019: Attended Reinforcement Learning Summer SCOOL. Lille, France.
+* June 2019: Attended 3rd Google NLP summit. Zurich, Switzerland. 
+* June 2019: Program committee, NoDaLiDa 2019. 
+* February 2019: Attended 2019 NLPL Winter School. Skeikampen, Norway. 
+* November 2018: Poster presentation at EMNLP 2018. Brussels, Belgium.
+* June 2018: Poster presentation at TABU Dag. Groningen, Netherlands.
+* June 2018: Participated in SemEval-2018 Task 1: Affect in Tweets. *Winning group*.
+* June 2018: Participated in SemEval-2018 Task 10: Capturing Discriminative Attributes.
+* May 2018: Poster presentation at LREC 2018. Miyazaki, Japan. 
+* September 2017: Poster presentation at BEA 2017 @ EMNLP 2017. Copenhagen, Denmark.
+* September 2017: Participated in BEA 2017 shared task.
+* July 2017: Attended ESSLLI 2017. Toulouse, France.
+* June 2017: Attended LOT Summer School. Leiden, Netherlands. 
+
+
 <!-- 2. M Abdou, A Kulmizev, JG i Ametllé: [AffecThor at SemEval-2018 Task 1: A cross-linguistic approach to sentiment intensity quantification in tweets](http://www.aclweb.org/anthology/S18-1032); Proceedings of The 12th International Workshop on Semantic Evaluation (2018) -->
 <!-- 3. A Kulmizev, M Abdou, V Ravishankar, M Nissim: [Discriminator at SemEval-2018 Task 10: Minimally Supervised Discrimination](http://www.aclweb.org/anthology/S18-1167); Proceedings of The 12th International Workshop on Semantic Evaluation (2018) -->
 <!-- 4. M Abdou, A Kulmizev, V Ravishankar: [MGAD: Multilingual Generation of Analogy Datasets](http://www.akulmizev.com/mgad-multilingual-generation.pdf); Proceedings of Language Resources and Evaluation Conference (LREC) (2018) -->
