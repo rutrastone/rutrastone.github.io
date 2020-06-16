@@ -6,7 +6,7 @@ layout: default
 
 <img class="profile-picture" src="eastside_red.jpg">
 
-I am a first-year PhD student in computational linguistics at Uppsala University (🇸🇪), supervised by Joakim Nivre and Anders Søgaard. My research interests include multilingual NLP, latent syntax, linguistic typology, and interpretability. Before my PhD, I graduated from the [EM-LCT](https://lct-master.org/) program, where I spent my first year at the University of Groningen (🇳🇱) and my second year at the the University of the Basque Country (🇪🇸). I grew up in Western Massachusetts (🇺🇸).
+I am a second-year PhD student in computational linguistics at Uppsala University (🇸🇪), supervised by Joakim Nivre and Anders Søgaard. My research interests include multilingual NLP, latent syntax, linguistic typology, and interpretability. Before my PhD, I graduated from the [EM-LCT](https://lct-master.org/) program, where I spent my first year at the University of Groningen (🇳🇱) and my second year at the the University of the Basque Country (🇪🇸). I grew up in Western Massachusetts (🇺🇸).
 
 <!-- Hello! I am a computational linguist from Western Massachusetts, USA. I'm currently a first-year PhD student at Uppsala University (🇸🇪), where I focus on multilingual morphosyntatic parsing under the supervision of Joakim Nivre. Before starting my PhD, I graduated from the [EM-LCT](https://lct-master.org/) program, where I spent my first year at the University of Groningen (🇳🇱) and my second year at the the University of the Basque Country (🇪🇸). I wrote my Master's thesis about the utility of multilingual word embeddings in transfer learning, supervised by Eneko Agirre and Gertjan van Noord. -->
 
