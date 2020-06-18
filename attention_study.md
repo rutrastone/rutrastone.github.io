@@ -34,3 +34,29 @@ Here, we tend to see the same patterns repeated across languages. Also, layer-he
 
 ![confidence_score](images/confidence_corr.png)
 
+There appears to be a clear relationship between decoding accuracy and head confidence. It is possible to visualize layer-head 2-3 clustered in the upper-right corner of the *MST* facet. 
+
+## Tree Visualization
+
+It might be an interesting qualitative experiment to visualize a dependency tree decoded by our methods. Below, we illustrate several trees returned by our *MST* method. 
+
+### Head 2, Layer 3
+
+![2_3_dog](images/2-3_dog.png)
+![2_3_ball](images/2-3_ball.png)
+
+For both English and Russian sentences (the latter meaning *I threw him the ball*), this head appears to be a simple adjacency tracker. 
+
+### Head 9, Layer 5
+
+![9_5_dog](images/9-5_dog.png)
+![9_5_ball](images/9-5_ball.png)
+
+Similarly to 2-3, this head largely tracks adjacency, save for the arc drawn between 'dog' and 'the'.
+
+### Head 12, Layer 9
+
+![12_9_dog](images/12-9_dog.png)
+![12_9_ball](images/12-9_ball.png)
+
+This head appears to encode the syntactic structure somewhat accurately, if we ignore directionality (we aren't measuring UAS) and some idiosyncracies. For example, in the English sentence, arcs from "the", "angry", "chased" are correctly connected to "dog". Strangely, "from" is also connected to "the" and the third "the" to the second "the". The Russian structure is captured correctly (again, ignoring directionality). 
