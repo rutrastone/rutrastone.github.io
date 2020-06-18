@@ -18,7 +18,7 @@ Perhaps the most interesting finding of Htut, et al. (2019) is that some heads *
 ![rel_max](images/attention_max.max.png)
 ![rel_js](images/attention_js.max.png)
 
-Again, the best-performing method is *MST* and the 2-3 layer-head combination is observed across many languages and relations. The easiest-to-decode relations appear to be *amod*, *aux*, *case*, and *det*. These, however, are typically easy relations where dependents often appear within one word of their heads in linear order. Below, we plot the maximum UUAS (as returned by any layer/head via *MST*) as a function of the average linear distance between words involved in a set of dependencies. 
+Again, the best-performing method is *MST* and the 2-3 and 9-5 layer-head combinations are observed across many languages and relations. The easiest-to-decode relations appear to be *amod*, *aux*, *case*, and *det*. These, however, are typically easy relations where dependents often appear within one word of their heads in linear order. Below, we plot the maximum UUAS (as returned by any layer/head via *MST*) as a function of the average linear distance between words involved in a set of dependencies. 
 
 ![linear_distance_score](images/linear_distance_max_corr.png)
 
@@ -26,4 +26,11 @@ Here, our suspicions are confirmed, as words in the easily-decodable relations a
 
 ## Confidence
 
-To characterize the behavior of particular attention heads, we might also consider their *confidence*. [Voita, et al. (2019)](https://www.aclweb.org/anthology/P19-1580.pdf) define the *confidence* of a head as "*the average of its maximum attention weight excluding the end of sentence symbol, where the average is taken over tokens in a set of sentences. A confident head is one that usually assigns a high proportion of its attention to a single token. Intuitively, we might expect confident heads to be important to the translation task.*"
+To characterize the behavior of particular attention heads, we might also consider their *confidence*. [Voita, et al. (2019)](https://www.aclweb.org/anthology/P19-1580.pdf) define the *confidence* of a head as "*the average of its maximum attention weight excluding the end of sentence symbol, where the average is taken over tokens in a set of sentences. A confident head is one that usually assigns a high proportion of its attention to a single token. Intuitively, we might expect confident heads to be important to the translation task.*" Below, we plot the *confidence* every layer and head per language. 
+
+![linear_distance_score](images/confidence.png)
+
+Here, we tend to see the same patterns repeated across languages. Also, layer-head 2-3 appears to be consistently confident, while 9-5 does not. Below, we plot the UUAS of each layer-head combination as a function of its confidence. 
+
+![linear_distance_score](images/confidence_corr.png)
+
