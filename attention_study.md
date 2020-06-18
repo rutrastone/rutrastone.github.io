@@ -17,3 +17,13 @@ Perhaps the most interesting finding of Htut, et al. (2019) is that some heads *
 ![rel_mst](images/attention_mst.max.png)
 ![rel_max](images/attention_max.max.png)
 ![rel_js](images/attention_js.max.png)
+
+Again, the best-performing method is *MST* and the 2-3 layer-head combination is observed across many languages and relations. The easiest-to-decode relations appear to be *amod*, *aux*, *case*, and *det*. These, however, are typically easy relations where dependents often appear within one word of their heads in linear order. Below, we plot the maximum UUAS (as returned by any layer/head via *MST*) as a function of the average linear distance between words involved in a set of dependencies. 
+
+![linear_distance_score](images/linear_distance_max_corr.png)
+
+Here, our suspicions are confirmed, as words in the easily-decodable relations appear to be, on average, very close to each other. Other relations appear to follow a predictable trend in decreasing in decoding accuracy as the distance in words becomes longer. 
+
+## Confidence
+
+
