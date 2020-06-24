@@ -85,13 +85,13 @@ Here, we observe similar distributions across models, though the mBERT facet sti
 
 Interestingly, both XLM models feature less confident heads than mBERT does. Another view of the relationship between head probability distributions and UUAS might be offered by looking at the average entropy of a head, as opposed to simply taking the average max probability. Here, we might expect realy confident heads to likewise have a low entropy, in that high probabilities are assigned to single words. Conversely, a head that assigns low probabilities to all words will likely yield a high entropy, which, per information theory, dictates that it is "uncertain". Below, we plot confidence as a function of mean entropy. 
 
-![entropy_conf](entropy_conf_corr_model.png)
+![entropy_conf](images/entropy_conf_corr_model.png)
 
 The best fit again appears to be for mBERT, which signifies that entropy increases when a head is less confident. Interestingly, the *large* XLM model does not depict a strong relationship between confidence and entropy, and tends to place the vast majority of its probability density below 0.25. 
 
 Now we might ask, what does the relationship between entropy and UUAS look like?
 
-![entropy_corr](entropy_corr_model.png)
+![entropy_corr](images/entropy_corr_model.png)
 
 Expectedly, we see a strong negative relationship between UUAS and entropy. This trend is almost identical for mBERT and XLM *base*, with similar distributions of layers. Again, we do not see a strong trend for the *large* model. 
 
