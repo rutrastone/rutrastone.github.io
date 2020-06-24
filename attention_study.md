@@ -26,7 +26,7 @@ Here, our suspicions are confirmed, as words in the easily-decodable relations a
 
 ## Confidence
 
-To characterize the behavior of particular attention heads, we might also consider their *confidence*. [Voita, et al. (2019)](https://www.aclweb.org/anthology/P19-1580.pdf) define the *confidence* of a head as "*the average of its maximum attention weight excluding the end of sentence symbol, where the average is taken over tokens in a set of sentences. A confident head is one that usually assigns a high proportion of its attention to a single token. Intuitively, we might expect confident heads to be important to the translation task.*" Below, we plot the *confidence* every layer and head per language. 
+To characterize the behavior of particular attention heads, we might also consider their *confidence*. [Voita, et al. (2019)](https://www.aclweb.org/anthology/P19-1580.pdf) define the *confidence* of a head as "*the average of its maximum attention weight excluding the end of sentence symbol, where the average is taken over tokens in a set of sentences. A confident head is one that usually assigns a high proportion of its attention to a single token.*" Below, we plot the *confidence* every layer and head per language. 
 
 ![confidence](images/confidence.png)
 
@@ -59,4 +59,52 @@ Similarly to 2-3, this head largely tracks adjacency, save for the arc drawn bet
 ![12_9_dog](images/12-9_dog.png)
 ![12_9_ball](images/12-9_ball.png)
 
-This head appears to encode the syntactic structure somewhat accurately, if we ignore directionality (we aren't measuring UAS) and some idiosyncracies. For example, in the English sentence, arcs from "the", "angry", "chased" are correctly connected to "dog". Strangely, "from" is also connected to "the" and the third "the" to the second "the". The Russian structure is captured correctly (again, ignoring directionality). 
+This head appears to encode the syntactic structure somewhat accurately, if we ignore directionality (we aren't measuring UAS) and some idiosyncracies. For example, in the English sentence, arcs from "the", "angry", "chased" are correctly connected to "dog". Strangely, "from" is also connected to "the" and the third "the" to the second "the". The Russian structure is captured correctly (again, ignoring directionality**. 
+
+## XLM-RoBERTa
+
+**mBERT** is not the only multilingual model on the market. **XLM-RoBERTa** is a similar, transformer-based model, with *base* (12 layers, 12 heads) and *large* (24 layers, 16 heads) versions. How do these models stack up to mBERT when decoding dependency trees from attention matrices? Might we expect better UUAS for the *large* model? Below, we plot each model's accuracy per language, using the *MST* method. 
+
+![uuas_per_model](images/uuas_total_per_model.png)
+
+There doesn't appear to be a huge difference here, though the *base* XLM model tends to decode trees slightly better than mBERT, with 9-2, 2-9, and 11-6 as the top-scoring combinations. Surprisingly, the *large* model performs worse than this in most cases. 
+
+Since we observed strong relationship between head confidence and UUAS, it might be interesting to see if this persists across models. 
+
+![confidence_corr_model](images/confidence_corr_model.png)
+
+Here, we observe similar distributions across models, though the mBERT facet still appears to depict the tighest fit. How do the confidence matrices of both XLM models look like? 
+
+### XLM-R-B
+
+![confidence_xlm_b](images/confidence_xlm_b.png)
+
+### XLM-R-L
+
+![confidence_xlm_l](images/confidence_xlm_l.png)
+
+Interestingly, both XLM models feature less confident heads than mBERT does. Another view of the relationship between head probability distributions and UUAS might be offered by looking at the average entropy of a head, as opposed to simply taking the average max probability. Here, we might expect realy confident heads to likewise have a low entropy, in that high probabilities are assigned to single words. Conversely, a head that assigns low probabilities to all words will likely yield a high entropy, which, per information theory, dictates that it is "uncertain". Below, we plot confidence as a function of mean entropy. 
+
+![entropy_conf](entropy_conf_corr_model.png)
+
+The best fit again appears to be for mBERT, which signifies that entropy increases when a head is less confident. Interestingly, the *large* XLM model does not depict a strong relationship between confidence and entropy, and tends to place the vast majority of its probability density below 0.25. 
+
+Now we might ask, what does the relationship between entropy and UUAS look like?
+
+![entropy_corr](entropy_corr_model.png)
+
+Expectedly, we see a strong negative relationship between UUAS and entropy. This trend is almost identical for mBERT and XLM *base*, with similar distributions of layers. Again, we do not see a strong trend for the *large* model. 
+
+To dive even deeper, we can look at the exact entropy returned by the layer/head combinations of each model. 
+
+### mBERT
+
+![entropy_mbert](images/entropy_mbert.png)
+
+### XLM-R-B
+
+![entropy_xlm_b](images/entropy_xlm_b.png)
+
+### XLM-R-L
+
+![entropy_xlm_l](images/entropy_xlm_l.png)
