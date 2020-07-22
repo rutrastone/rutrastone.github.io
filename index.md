@@ -24,7 +24,7 @@ I am a second-year PhD student in computational linguistics at Uppsala Universit
 * M Abdou, A Kulmizev, V Ravishankar, L Abzianidze, J Bos: [What can we learn from Semantic Tagging?](https://arxiv.org/pdf/1808.09716.pdf). Conference on Empirical Methods in Natural Language Processing (EMNLP 2018). Brussels, Belgium.
 * M Abdou, A Kulmizev, V Ravishankar: [MGAD: Multilingual Generation of Analogy Datasets](https://www.aclweb.org/anthology/L18-1320.pdf). 11th edition of the Language Resources and Evaluation Conference (LREC 2018). Miyazaki, Japan. 
 
-## acivities
+## activities
 
 * *June 2020:* Participated in IWPT 2020 Shared Task on Parsing into Enhanced Universal Dependencies. 
 * *February 2020:* Invited talk at 2020 NLPL Winter School, with Joakim Nivre. Skeikampen, Norway. 

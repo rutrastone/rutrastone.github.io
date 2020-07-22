@@ -28,4 +28,46 @@ layout: default
 
 ![uas_structural](images/uas_structural.png)
 
+## Structural Probe Results, UAS, Mixture
 
+![combo_uas_structural](images/combo_uas_structural.png)
+
+## Structural Probe Results, UUAS
+
+![uuas_structural](images/uuas_structural.png)
+
+## Structural Probe Results, UUAS, Mixture
+
+![combo_uuas_structural](images/combo_uuas_structural.png)
+
+## Bilinear Probe Results, UAS
+
+![uas_bilinear](images/uas_bilinear.png)
+
+## Bilinear Probe Results, UAS, Mixture
+
+![combo_uas_bilinear](images/combo_uas_bilinear.png)
+
+## Bilinear Probe Results, UUAS
+
+![uuas_bilinear](images/uuas_bilinear.png)
+
+## Bilinear Probe Results, UUAS, Mixture
+
+![combo_uuas_bilinear](images/combo_uuas_bilinear.png)
+
+## Structural Probe Results, UAS per POS
+
+![uas_pos_structural](images/uas_pos_structural.png)
+
+## Structural Probe Results, UUAS per POS
+
+![uuas_pos_structural](images/uuas_pos_structural.png)
+
+## Bilinear Probe Results, UAS per POS
+
+![uas_pos_bilinear](images/uas_pos_bilinear.png)
+
+## Bilinear Probe Results, UUAS per POS
+
+![uuas_pos_bilinear](images/uuas_pos_bilinear.png)
