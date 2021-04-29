@@ -18,7 +18,7 @@ I am a second-year PhD student in computational linguistics at Uppsala Universit
 ---
 
 ## publications
-* A Kulmizev, V Ravishankar, M Abdou, A S{\o}gaard, J Nivre: [Attention Can Reflect Syntactic Structure _(If You Let It)_](https://www.aclweb.org/anthology/2021.eacl-main.264.pdf). EACL 2021. Digital. 
+* A Kulmizev, V Ravishankar, M Abdou, A Søgaard, J Nivre: [Attention Can Reflect Syntactic Structure _(If You Let It)_](https://www.aclweb.org/anthology/2021.eacl-main.264.pdf). EACL 2021. Digital. 
 * A Kulmizev, V Ravishankar, M Abdou, J Nivre: [Do Neural Language Models Show Preferences for Syntactic Formalisms?](https://www.aclweb.org/anthology/2020.acl-main.375.pdf). ACL 2020. Digital. 
 * A Kulmizev, M de Lhoneux, J Gontrum, E Fano, J Nivre: [Deep Contextualized Word Embeddings in Transition-Based and Graph-Based Dependency Parsing -- A Tale of Two Parsers Revisited](https://www.aclweb.org/anthology/D19-1277.pdf). EMNLP 2019. Hong Kong.
 * M Abdou, A Kulmizev, F Hill, D Low, A Søgaard: [Higher-order Comparisons of Sentence Encoder Representations](https://www.aclweb.org/anthology/D19-1593.pdf). EMNLP 2019. Hong Kong.
