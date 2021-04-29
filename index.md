@@ -18,14 +18,16 @@ I am a second-year PhD student in computational linguistics at Uppsala Universit
 ---
 
 ## publications
-* A Kulmizev, V Ravishankar, M Abdou, J Nivre: [Do Neural Language Models Show Preferences for Syntactic Formalisms?](https://arxiv.org/pdf/2004.14096.pdf). The 58th Annual Meeting of the Association for Computational Linguistics (ACL 2020). Digital. 
-* A Kulmizev, M de Lhoneux, J Gontrum, E Fano, J Nivre: [Deep Contextualized Word Embeddings in Transition-Based and Graph-Based Dependency Parsing -- A Tale of Two Parsers Revisited](https://arxiv.org/pdf/1908.07397.pdf). Conference on Empirical Methods in Natural Language Processing (EMNLP 2019). Hong Kong.
-* M Abdou, A Kulmizev, F Hill, D Low, A Søgaard: [Higher-order Comparisons of Sentence Encoder Representations](https://arxiv.org/pdf/1909.00303.pdf). Conference on Empirical Methods in Natural Language Processing (EMNLP 2019). Hong Kong.
-* M Abdou, A Kulmizev, V Ravishankar, L Abzianidze, J Bos: [What can we learn from Semantic Tagging?](https://arxiv.org/pdf/1808.09716.pdf). Conference on Empirical Methods in Natural Language Processing (EMNLP 2018). Brussels, Belgium.
-* M Abdou, A Kulmizev, V Ravishankar: [MGAD: Multilingual Generation of Analogy Datasets](https://www.aclweb.org/anthology/L18-1320.pdf). 11th edition of the Language Resources and Evaluation Conference (LREC 2018). Miyazaki, Japan. 
+* A Kulmizev, V Ravishankar, M Abdou, A S{\o}gaard, J Nivre: [Attention Can Reflect Syntactic Structure _(If You Let It)_](https://www.aclweb.org/anthology/2021.eacl-main.264.pdf). EACL 2021. Digital. 
+* A Kulmizev, V Ravishankar, M Abdou, J Nivre: [Do Neural Language Models Show Preferences for Syntactic Formalisms?](https://www.aclweb.org/anthology/2020.acl-main.375.pdf). ACL 2020. Digital. 
+* A Kulmizev, M de Lhoneux, J Gontrum, E Fano, J Nivre: [Deep Contextualized Word Embeddings in Transition-Based and Graph-Based Dependency Parsing -- A Tale of Two Parsers Revisited](https://www.aclweb.org/anthology/D19-1277.pdf). EMNLP 2019. Hong Kong.
+* M Abdou, A Kulmizev, F Hill, D Low, A Søgaard: [Higher-order Comparisons of Sentence Encoder Representations](https://www.aclweb.org/anthology/D19-1593.pdf). EMNLP 2019. Hong Kong.
+* M Abdou, A Kulmizev, V Ravishankar, L Abzianidze, J Bos: [What can we learn from Semantic Tagging?](https://www.aclweb.org/anthology/D18-1526.pdf). EMNLP 2018. Brussels, Belgium.
+* M Abdou, A Kulmizev, V Ravishankar: [MGAD: Multilingual Generation of Analogy Datasets](https://www.aclweb.org/anthology/L18-1320.pdf). LREC 2018. Miyazaki, Japan. 
 
 ## activities
 
+* *April 2021* Oral presentation at EACL 2021. 
 * *June 2020:* Participated in IWPT 2020 Shared Task on Parsing into Enhanced Universal Dependencies. 
 * *February 2020:* Invited talk at 2020 NLPL Winter School, with Joakim Nivre. Skeikampen, Norway. 
 * *November 2019:* Poster presentation and talk at EMNLP 2019. Hong Kong.
