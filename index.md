@@ -23,8 +23,8 @@ I am a third-year PhD student in computational linguistics at Uppsala University
 * M Abdou, A Kulmizev, V Ravishankar: [MGAD: Multilingual Generation of Analogy Datasets](https://www.aclweb.org/anthology/L18-1320.pdf**. LREC 2018. Miyazaki, Japan. 
 
 ## activities
-* *August 2021* Participated in the Dagstuhl Seminar on Universals of Linguistic Idiosyncrasy in Multilingual Computational Linguistics. 
-* *April 2021* Oral presentation at EACL 2021. 
+* *August 2021*: Participated in the Dagstuhl Seminar on Universals of Linguistic Idiosyncrasy in Multilingual Computational Linguistics. 
+* *April 2021*: Oral presentation at EACL 2021. 
 * *June 2020:* Participated in IWPT 2020 Shared Task on Parsing into Enhanced Universal Dependencies. 
 * *February 2020:* Invited talk at 2020 NLPL Winter School, with Joakim Nivre. Skeikampen, Norway. 
 * *November 2019:* Poster presentation and talk at EMNLP 2019. Hong Kong.
