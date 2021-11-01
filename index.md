@@ -46,8 +46,8 @@ I am a third-year PhD student in computational linguistics at Uppsala University
 
 ## teaching
 
-* *Advanced Programming*. First period, Spring Term 2020. Master's Programme in Language Technology. Uppsala University. 
-* *Natural Language Processing*. Second Period, Fall Term 2019. Master's Programme in Language Technology. Uppsala University. 
+* *Advanced Programming*. First period, Spring Term 2020, 21. Master's Programme in Language Technology. Uppsala University. 
+* *Natural Language Processing*. Second Period, Fall Term 2019, 20, 21. Master's Programme in Language Technology. Uppsala University. 
 
 <!-- 2. M Abdou, A Kulmizev, JG i Ametllé: [AffecThor at SemEval-2018 Task 1: A cross-linguistic approach to sentiment intensity quantification in tweets](http://www.aclweb.org/anthology/S18-1032); Proceedings of The 12th International Workshop on Semantic Evaluation (2018) -->
 <!-- 3. A Kulmizev, M Abdou, V Ravishankar, M Nissim: [Discriminator at SemEval-2018 Task 10: Minimally Supervised Discrimination](http://www.aclweb.org/anthology/S18-1167); Proceedings of The 12th International Workshop on Semantic Evaluation (2018) -->
