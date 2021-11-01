@@ -20,7 +20,7 @@ I am a third-year PhD student in computational linguistics at Uppsala University
 * A Kulmizev, M de Lhoneux, J Gontrum, E Fano, J Nivre: [Deep Contextualized Word Embeddings in Transition-Based and Graph-Based Dependency Parsing -- A Tale of Two Parsers Revisited](https://www.aclweb.org/anthology/D19-1277.pdf). EMNLP 2019. Hong Kong.
 * M Abdou, A Kulmizev, F Hill, D Low, A Søgaard: [Higher-order Comparisons of Sentence Encoder Representations](https://www.aclweb.org/anthology/D19-1593.pdf). EMNLP 2019. Hong Kong.
 * M Abdou, A Kulmizev, V Ravishankar, L Abzianidze, J Bos: [What can we learn from Semantic Tagging?](https://www.aclweb.org/anthology/D18-1526.pdf). EMNLP 2018. Brussels, Belgium.
-* M Abdou, A Kulmizev, V Ravishankar: [MGAD: Multilingual Generation of Analogy Datasets](https://www.aclweb.org/anthology/L18-1320.pdf**. LREC 2018. Miyazaki, Japan. 
+* M Abdou, A Kulmizev, V Ravishankar: [MGAD: Multilingual Generation of Analogy Datasets](https://www.aclweb.org/anthology/L18-1320.pdf). LREC 2018. Miyazaki, Japan. 
 
 ## activities
 * *August 2021*: Participated in the Dagstuhl Seminar on Universals of Linguistic Idiosyncrasy in Multilingual Computational Linguistics. 
