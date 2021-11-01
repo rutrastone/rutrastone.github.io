@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Tree Probing Study</title>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="blog, accent, , artur kulmizev, jekyll">
+    <meta name="author" content="">
+    
+    
+    
+    <meta name="description" content="">
+    <link href='https://fonts.googleapis.com/css?family=Inconsolata:400,700' rel='stylesheet' type='text/css'>
+    <link rel="alternate" type="application/rss+xml" title="artur kulmizev RSS" href="/feed.xml" />
+    <link rel="stylesheet" href="/css/main.css">
+    
+    
+    <!-- Facebook Open Graph -->
+    <meta name="og:description" content="">
+    <meta name="og:title" content="artur kulmizev">
+    <meta name="og:url" content="http://localhost:4000/probing_study.html">
+    <meta name="og:type" content="article">
+    
+    
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="artur kulmizev">
+    <meta name="twitter:description" content="">
+    <meta name="twitter:url" content="http://localhost:4000/probing_study.html">
+    
+    <meta name="twitter:image" content="">
+    
+
+    <link href="https://fonts.googleapis.com/css?family=Lexend+Deca|Livvic|Noto+Sans|Open+Sans|PT+Sans|Roboto&display=swap" rel="stylesheet"> 
+</head>
+<body>
+    <div class="wrapper">
+        <div class="navbar container">
+            <a id="author-name" class="alignable pull-left" href="">artur kulmizev</a>
+            <ul id="navlist" class="alignable pull-right navbar-ul">
+                
+                    
+                        <li class="alignable pull-left nav-list"><a href="index">about</a>
+                    
+                    
+                        /
+                    
+                        </li>
+                
+                    
+                        <li class="alignable pull-left nav-list"><a href="ak_cv.pdf">cv</a>
+                    
+                    
+                        /
+                    
+                        </li>
+                
+                    
+                        <li class="alignable pull-left nav-list"><a href="contact">contact</a>
+                    
+                    
+                        /
+                    
+                        </li>
+                
+                    
+                        <li class="alignable pull-left nav-list"><a href="https://supernlp.github.io">supernlp</a>
+                    
+                    
+                        </li>
+                
+            </ul>
+        </div>
+        <div style="clear:both"></div>
+        <hr>
+        
+            <div class="container content">
+        
+                <h1 id="tree-probing-study">Tree Probing Study</h1>
+
+<h3 id="treebank-statistics">Treebank Statistics</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>language</th>
+      <th>treebank</th>
+      <th>n_sents</th>
+      <th>% ADP</th>
+      <th>% AUX</th>
+      <th>% content relations</th>
+      <th> </th>
+      <th> </th>
+      <th>dependency length</th>
+      <th> </th>
+      <th> </th>
+      <th>tree height</th>
+      <th> </th>
+      <th> </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td>UD</td>
+      <td>SUD</td>
+      <td>BUD</td>
+      <td>UD</td>
+      <td>SUD</td>
+      <td>BUD</td>
+      <td>UD</td>
+      <td>SUD</td>
+      <td>BUD</td>
+    </tr>
+    <tr>
+      <td>Arabic</td>
+      <td>PADT</td>
+      <td>6075</td>
+      <td>17</td>
+      <td>1</td>
+      <td>0.37</td>
+      <td>0.24</td>
+      <td>0.15</td>
+      <td>4.17</td>
+      <td>3.92</td>
+      <td>4.23</td>
+      <td>7.20</td>
+      <td>9.82</td>
+      <td>7.19</td>
+    </tr>
+    <tr>
+      <td>Basque</td>
+      <td>BDT</td>
+      <td>5396</td>
+      <td>2</td>
+      <td>13</td>
+      <td>0.34</td>
+      <td>0.25</td>
+      <td>0.15</td>
+      <td>2.99</td>
+      <td>2.90</td>
+      <td>2.97</td>
+      <td>3.49</td>
+      <td>4.18</td>
+      <td>3.35</td>
+    </tr>
+    <tr>
+      <td>Chinese</td>
+      <td>GSD</td>
+      <td>3997</td>
+      <td>5</td>
+      <td>3</td>
+      <td>0.37</td>
+      <td>0.30</td>
+      <td>0.21</td>
+      <td>3.72</td>
+      <td>3.74</td>
+      <td>3.96</td>
+      <td>4.30</td>
+      <td>6.56</td>
+      <td>4.21</td>
+    </tr>
+    <tr>
+      <td>English</td>
+      <td>EWT</td>
+      <td>12543</td>
+      <td>8</td>
+      <td>6</td>
+      <td>0.20</td>
+      <td>0.12</td>
+      <td>0.05</td>
+      <td>3.13</td>
+      <td>2.94</td>
+      <td>3.18</td>
+      <td>3.48</td>
+      <td>5.11</td>
+      <td>3.48</td>
+    </tr>
+    <tr>
+      <td>Finnish</td>
+      <td>TFT</td>
+      <td>12217</td>
+      <td>2</td>
+      <td>7</td>
+      <td>0.35</td>
+      <td>0.30</td>
+      <td>0.24</td>
+      <td>2.98</td>
+      <td>2.91</td>
+      <td>3.06</td>
+      <td>3.42</td>
+      <td>4.22</td>
+      <td>3.41</td>
+    </tr>
+    <tr>
+      <td>Hebrew</td>
+      <td>HTB</td>
+      <td>5241</td>
+      <td>18</td>
+      <td>2</td>
+      <td>0.28</td>
+      <td>0.14</td>
+      <td>0.06</td>
+      <td>3.76</td>
+      <td>3.53</td>
+      <td>3.82</td>
+      <td>5.07</td>
+      <td>7.30</td>
+      <td>5.03</td>
+    </tr>
+    <tr>
+      <td>Hindi</td>
+      <td>HDTB</td>
+      <td>13304</td>
+      <td>22</td>
+      <td>9</td>
+      <td>0.26</td>
+      <td>0.10</td>
+      <td>0.03</td>
+      <td>3.44</td>
+      <td>3.05</td>
+      <td>3.66</td>
+      <td>4.25</td>
+      <td>7.41</td>
+      <td>4.24</td>
+    </tr>
+    <tr>
+      <td>Italian</td>
+      <td>ISDT</td>
+      <td>13121</td>
+      <td>15</td>
+      <td>5</td>
+      <td>0.21</td>
+      <td>0.08</td>
+      <td>0.02</td>
+      <td>3.30</td>
+      <td>3.12</td>
+      <td>3.41</td>
+      <td>4.21</td>
+      <td>6.28</td>
+      <td>4.20</td>
+    </tr>
+    <tr>
+      <td>Japanese</td>
+      <td>GSD</td>
+      <td>7125</td>
+      <td>25</td>
+      <td>14</td>
+      <td>0.31</td>
+      <td>0.10</td>
+      <td>0.03</td>
+      <td>2.49</td>
+      <td>2.08</td>
+      <td>2.40</td>
+      <td>4.40</td>
+      <td>8.18</td>
+      <td>4.40</td>
+    </tr>
+    <tr>
+      <td>Korean</td>
+      <td>GSD</td>
+      <td>4400</td>
+      <td>2</td>
+      <td>0</td>
+      <td>0.58</td>
+      <td>0.57</td>
+      <td>0.55</td>
+      <td>2.20</td>
+      <td>2.17</td>
+      <td>2.26</td>
+      <td>3.86</td>
+      <td>4.07</td>
+      <td>3.78</td>
+    </tr>
+    <tr>
+      <td>Russian</td>
+      <td>SynTagRus</td>
+      <td>48814</td>
+      <td>10</td>
+      <td>1</td>
+      <td>0.31</td>
+      <td>0.22</td>
+      <td>0.17</td>
+      <td>3.28</td>
+      <td>3.13</td>
+      <td>3.28</td>
+      <td>4.21</td>
+      <td>5.24</td>
+      <td>4.19</td>
+    </tr>
+    <tr>
+      <td>Swedish</td>
+      <td>Talbanken</td>
+      <td>4303</td>
+      <td>12</td>
+      <td>5</td>
+      <td>0.29</td>
+      <td>0.17</td>
+      <td>0.10</td>
+      <td>3.14</td>
+      <td>2.98</td>
+      <td>3.26</td>
+      <td>3.50</td>
+      <td>5.02</td>
+      <td>3.48</td>
+    </tr>
+    <tr>
+      <td>Turkish</td>
+      <td>IMST</td>
+      <td>3664</td>
+      <td>3</td>
+      <td>3</td>
+      <td>0.33</td>
+      <td>0.30</td>
+      <td>0.26</td>
+      <td>2.21</td>
+      <td>2.12</td>
+      <td>2.22</td>
+      <td>3.01</td>
+      <td>3.37</td>
+      <td>3.00</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="structural-probe-results-uas">Structural Probe Results, UAS</h2>
+
+<p><img src="/images/uas_structural.png" alt="uas_structural" /></p>
+
+<h2 id="structural-probe-results-uas-mixture">Structural Probe Results, UAS, Mixture</h2>
+
+<p><img src="/images/combo_uas_structural.png" alt="combo_uas_structural" /></p>
+
+<h2 id="structural-probe-results-uuas">Structural Probe Results, UUAS</h2>
+
+<p><img src="/images/uuas_structural.png" alt="uuas_structural" /></p>
+
+<h2 id="structural-probe-results-uuas-mixture">Structural Probe Results, UUAS, Mixture</h2>
+
+<p><img src="/images/combo_uuas_structural.png" alt="combo_uuas_structural" /></p>
+
+<h2 id="bilinear-probe-results-uas">Bilinear Probe Results, UAS</h2>
+
+<p><img src="/images/uas_bilinear.png" alt="uas_bilinear" /></p>
+
+<h2 id="bilinear-probe-results-uas-mixture">Bilinear Probe Results, UAS, Mixture</h2>
+
+<p><img src="/images/combo_uas_bilinear.png" alt="combo_uas_bilinear" /></p>
+
+<h2 id="bilinear-probe-results-uuas">Bilinear Probe Results, UUAS</h2>
+
+<p><img src="/images/uuas_bilinear.png" alt="uuas_bilinear" /></p>
+
+<h2 id="bilinear-probe-results-uuas-mixture">Bilinear Probe Results, UUAS, Mixture</h2>
+
+<p><img src="/images/combo_uuas_bilinear.png" alt="combo_uuas_bilinear" /></p>
+
+<h2 id="structural-probe-results-uas-per-pos">Structural Probe Results, UAS per POS</h2>
+
+<p><img src="/images/uas_pos_structural.png" alt="uas_pos_structural" /></p>
+
+<h2 id="structural-probe-results-uuas-per-pos">Structural Probe Results, UUAS per POS</h2>
+
+<p><img src="/images/uuas_pos_structural.png" alt="uuas_pos_structural" /></p>
+
+<h2 id="bilinear-probe-results-uas-per-pos">Bilinear Probe Results, UAS per POS</h2>
+
+<p><img src="/images/uas_pos_bilinear.png" alt="uas_pos_bilinear" /></p>
+
+<h2 id="bilinear-probe-results-uuas-per-pos">Bilinear Probe Results, UUAS per POS</h2>
+
+<p><img src="/images/uuas_pos_bilinear.png" alt="uuas_pos_bilinear" /></p>
+
+				
+            </div>
+    </div>
+    
+</body>
+<footer>
+</footer>

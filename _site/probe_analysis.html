@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>artur kulmizev</title>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="blog, accent, , artur kulmizev, jekyll">
+    <meta name="author" content="">
+    
+    
+    
+    <meta name="description" content="">
+    <link href='https://fonts.googleapis.com/css?family=Inconsolata:400,700' rel='stylesheet' type='text/css'>
+    <link rel="alternate" type="application/rss+xml" title="artur kulmizev RSS" href="/feed.xml" />
+    <link rel="stylesheet" href="/css/main.css">
+    
+    
+    <!-- Facebook Open Graph -->
+    <meta name="og:description" content="">
+    <meta name="og:title" content="artur kulmizev">
+    <meta name="og:url" content="http://localhost:4000/probe_analysis.html">
+    <meta name="og:type" content="article">
+    
+    
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="artur kulmizev">
+    <meta name="twitter:description" content="">
+    <meta name="twitter:url" content="http://localhost:4000/probe_analysis.html">
+    
+    <meta name="twitter:image" content="">
+    
+
+    <link href="https://fonts.googleapis.com/css?family=Lexend+Deca|Livvic|Noto+Sans|Open+Sans|PT+Sans|Roboto&display=swap" rel="stylesheet"> 
+</head>
+<body>
+    <div class="wrapper">
+        <div class="navbar container">
+            <a id="author-name" class="alignable pull-left" href="">artur kulmizev</a>
+            <ul id="navlist" class="alignable pull-right navbar-ul">
+                
+                    
+                        <li class="alignable pull-left nav-list"><a href="index">about</a>
+                    
+                    
+                        /
+                    
+                        </li>
+                
+                    
+                        <li class="alignable pull-left nav-list"><a href="ak_cv.pdf">cv</a>
+                    
+                    
+                        /
+                    
+                        </li>
+                
+                    
+                        <li class="alignable pull-left nav-list"><a href="contact">contact</a>
+                    
+                    
+                        /
+                    
+                        </li>
+                
+                    
+                        <li class="alignable pull-left nav-list"><a href="https://supernlp.github.io">supernlp</a>
+                    
+                    
+                        </li>
+                
+            </ul>
+        </div>
+        <div style="clear:both"></div>
+        <hr>
+        
+            <div class="container content">
+        
+                <h1><center>UD/SUD Probe Results and Error Analysis</center></h1>
+
+<p><img src="/final_plots/bert_final.png" alt="senlen" /></p>
+
+<p><img src="/final_plots/elmo_final.png" alt="senlen" /></p>
+
+<p><img src="/final_plots/senlen_all.png" alt="senlen" /></p>
+
+<p><img src="/final_plots/deplen_all_f1.png" alt="deplen" /></p>
+
+<p><img src="/final_plots/root_dist_all_f1.png" alt="dist_root" /></p>
+
+<p><img src="/final_plots/projectivity_all.png" alt="proj" /></p>
+
+<p><img src="/final_plots/postag_all.png" alt="proj" /></p>
+
+<p><img src="/final_plots/deprel_all.png" alt="proj" /></p>
+
+<p>(I collapsed the set of SUD relations into 5 categories, ignoring specific constructions denoted by “:”. Not sure if this is the way to go, but it’s a start.)</p>
+
+<p><img src="/final_plots/bert_combined.png" alt="proj" /></p>
+
+<p><img src="/final_plots/elmo_combined.png" alt="proj" /></p>
+
+<p>Since I don’t have UAS scores for supervised parsers, I had to use our old LAS results for the contextualized embedding paper. Here, the top plots show the UAS score for layers 1-12 (0-2 for ELMo) plotted against the LAS for supervised parsers trained on UD. The bottom plot shows the combined layers plotted against the same, but this time grouped by language. Since the supervised results were trained on UD treebanks only, it would not be fair to compare these results to the SUD subset. However, if we think it’s worthwhile, I can (re)train parsers on UD/SUD trtebanks in order to make the comparison across schema as well as UAS.</p>
+
+<h3><center>Tree Similarity and Difference in Score</center></h3>
+
+<p><img src="/final_plots/treesim.png" alt="proj" /></p>
+
+<p>I thought it would be worthwhile to see if divergence in tree structure would show an interesting trend with regards to the difference in probing accuracy over UD/SUD treebanks. This plot shows the number of shared subtrees in gold UD/SUD sentences on the y-axis, plotted against the difference in probing accuracy for the same sentence on the x-axis. I was expecting to see a bowl-shaped distribution here, with most values concentrated along the 25/75 quartiles, but the plot here shows the exact opposite of that. Not sure if we should look into this further or if there is a more principled way of extracting shared structures.</p>
+
+<!-- <h3><center>arc direction</center></h3> -->
+
+<!-- ![arcidr_pr](arcdir_pr.png) ![arcdir_rc](arcdir_rc.png) -->
+
+<!-- <h3><center>pos-tag</center></h3> -->
+
+<!-- ![postag](postags.png) -->
+
+<!-- <h3><center>dependency relations</center></h3> -->
+
+<!-- ![deprel_pr](deprel_pr.png) ![deprel_rc](deprel_rc.png) -->
+
+				
+            </div>
+    </div>
+    
+</body>
+<footer>
+</footer>

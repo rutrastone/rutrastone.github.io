@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Attention Study</title>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="blog, accent, , artur kulmizev, jekyll">
+    <meta name="author" content="">
+    
+    
+    
+    <meta name="description" content="">
+    <link href='https://fonts.googleapis.com/css?family=Inconsolata:400,700' rel='stylesheet' type='text/css'>
+    <link rel="alternate" type="application/rss+xml" title="artur kulmizev RSS" href="/feed.xml" />
+    <link rel="stylesheet" href="/css/main.css">
+    
+    
+    <!-- Facebook Open Graph -->
+    <meta name="og:description" content="">
+    <meta name="og:title" content="artur kulmizev">
+    <meta name="og:url" content="http://localhost:4000/attention_study.html">
+    <meta name="og:type" content="article">
+    
+    
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="artur kulmizev">
+    <meta name="twitter:description" content="">
+    <meta name="twitter:url" content="http://localhost:4000/attention_study.html">
+    
+    <meta name="twitter:image" content="">
+    
+
+    <link href="https://fonts.googleapis.com/css?family=Lexend+Deca|Livvic|Noto+Sans|Open+Sans|PT+Sans|Roboto&display=swap" rel="stylesheet"> 
+</head>
+<body>
+    <div class="wrapper">
+        <div class="navbar container">
+            <a id="author-name" class="alignable pull-left" href="">artur kulmizev</a>
+            <ul id="navlist" class="alignable pull-right navbar-ul">
+                
+                    
+                        <li class="alignable pull-left nav-list"><a href="index">about</a>
+                    
+                    
+                        /
+                    
+                        </li>
+                
+                    
+                        <li class="alignable pull-left nav-list"><a href="ak_cv.pdf">cv</a>
+                    
+                    
+                        /
+                    
+                        </li>
+                
+                    
+                        <li class="alignable pull-left nav-list"><a href="contact">contact</a>
+                    
+                    
+                        /
+                    
+                        </li>
+                
+                    
+                        <li class="alignable pull-left nav-list"><a href="https://supernlp.github.io">supernlp</a>
+                    
+                    
+                        </li>
+                
+            </ul>
+        </div>
+        <div style="clear:both"></div>
+        <hr>
+        
+            <div class="container content">
+        
+                <h1 id="attention-study">Attention Study</h1>
+
+<h2 id="tree-decoding">Tree Decoding</h2>
+
+<p><a href="https://arxiv.org/pdf/1911.12246.pdf">Htut, et al. (2019)</a> find that Masked Language Models’ (BERT, ROBERTA) attention heads do not reliably encode UD dependency trees in English. For a given layer and attention head, Htut, et al. (2019) experiment with two strategies for extracting trees: <em>MAX</em> and <em>MST</em>. With <em>MAX</em>, they take the maximum incoming attention score for every word. For an $ N \times N $ attention matrix, where $ N $ is the sentence length, this amounts to taking the $ \arg \max $ over every row. With <em>MST</em>, they run the Chu-Liu-Edmonds algorithm over the matrix in order to extract a maximum spanning tree. With both approaces, Htut, et al. (2019) report Unlabeled Undirected Attachment Scores (UUAS) of approximately 40%, which is slightly better than the left-to-right positional baseline. Might we expect better accuracy if we examine other languages? Here, we replicate the experiments of Htut, et al. (2019) over the 19 languages represented in the Parallel UD treebank. In addition to their <em>MAX</em> and <em>MST</em> methods, we also consider <em>JS</em>, where we calculate the Jensen-Shannon similarity (1 - JS divergence) across all pairs of incoming attention vectors and take the argmax per word. We overlay the best performing layer-head combination on each bar in the figure below. Out of the tree approaches, <em>MST</em> works best. Layer 2, head 3 tends to provide the best decoding accuracy using <em>MST</em> for the majority of languages.</p>
+
+<p><img src="/images/uuas_total.png" alt="tree_results" /></p>
+
+<h2 id="accuracy-per-relation">Accuracy per Relation</h2>
+
+<p>Perhaps the most interesting finding of Htut, et al. (2019) is that some heads <em>specialize</em> in tracking specific dependency relations. Included among those relations are <em>nsubj</em>, <em>obj</em>, <em>advmod</em>, and <em>amod</em>, which, unlike the full trees, are decoded with higher accuracy than the position baselines. We investigate the extent to which this persists across the remaining 18 PUD languages below.</p>
+
+<p><img src="/images/attention_mst.max.png" alt="rel_mst" />
+<img src="/images/attention_max.max.png" alt="rel_max" />
+<img src="/images/attention_js.max.png" alt="rel_js" /></p>
+
+<p>Again, the best-performing method is <em>MST</em> and the 2-3 and 9-5 layer-head combinations are observed across many languages and relations. The easiest-to-decode relations appear to be <em>amod</em>, <em>aux</em>, <em>case</em>, and <em>det</em>. These, however, are typically easy relations where dependents often appear within one word of their heads in linear order. Below, we plot the maximum UUAS (as returned by any layer/head via <em>MST</em>) as a function of the average linear distance between words involved in a set of dependencies.</p>
+
+<p><img src="/images/linear_distance_max_corr.png" alt="linear_distance_score" /></p>
+
+<p>Here, our suspicions are confirmed, as words in the easily-decodable relations appear to be, on average, very close to each other. Other relations appear to follow a predictable trend in decreasing in decoding accuracy as the distance in words becomes longer.</p>
+
+<h2 id="confidence">Confidence</h2>
+
+<p>To characterize the behavior of particular attention heads, we might also consider their <em>confidence</em>. <a href="https://www.aclweb.org/anthology/P19-1580.pdf">Voita, et al. (2019)</a> define the <em>confidence</em> of a head as “<em>the average of its maximum attention weight excluding the end of sentence symbol, where the average is taken over tokens in a set of sentences. A confident head is one that usually assigns a high proportion of its attention to a single token.</em>” Below, we plot the <em>confidence</em> every layer and head per language.</p>
+
+<p><img src="/images/confidence.png" alt="confidence" /></p>
+
+<p>Here, we tend to see the same patterns repeated across languages. Also, layer-head 2-3 appears to be consistently confident, while 9-5 does not. To visualize how decoding accuary might interact with confident, we plot the UUAS of each layer-head combination as a function of its confidence below.</p>
+
+<p><img src="/images/confidence_corr.png" alt="confidence_score" /></p>
+
+<p>There appears to be a clear relationship between decoding accuracy and head confidence. It is possible to visualize layer-head 2-3 clustered in the upper-right corner of the <em>MST</em> facet.</p>
+
+<h2 id="tree-visualization">Tree Visualization</h2>
+
+<p>It might be an interesting qualitative experiment to visualize a dependency tree decoded by our methods. Below, we illustrate several trees returned by our <em>MST</em> method.</p>
+
+<h3 id="head-2-layer-3">Head 2, Layer 3</h3>
+
+<p><img src="/images/2-3_dog.png" alt="2_3_dog" />
+<img src="/images/2-3_ball.png" alt="2_3_ball" /></p>
+
+<p>For both English and Russian sentences (the latter meaning <em>I threw him the ball</em>), this head appears to be a simple adjacency tracker.</p>
+
+<h3 id="head-9-layer-5">Head 9, Layer 5</h3>
+
+<p><img src="/images/9-5_dog.png" alt="9_5_dog" />
+<img src="/images/9-5_ball.png" alt="9_5_ball" /></p>
+
+<p>Similarly to 2-3, this head largely tracks adjacency, save for the arc drawn between ‘dog’ and ‘the’.</p>
+
+<h3 id="head-12-layer-9">Head 12, Layer 9</h3>
+
+<p><img src="/images/12-9_dog.png" alt="12_9_dog" />
+<img src="/images/12-9_ball.png" alt="12_9_ball" /></p>
+
+<p>This head appears to encode the syntactic structure somewhat accurately, if we ignore directionality (we aren’t measuring UAS) and some idiosyncracies. For example, in the English sentence, arcs from “the”, “angry”, “chased” are correctly connected to “dog”. Strangely, “from” is also connected to “the” and the third “the” to the second “the”. The Russian structure is captured correctly (again, ignoring directionality**.</p>
+
+<h2 id="xlm-roberta">XLM-RoBERTa</h2>
+
+<p><strong>mBERT</strong> is not the only multilingual model on the market. <strong>XLM-RoBERTa</strong> is a similar, transformer-based model, with <em>base</em> (12 layers, 12 heads) and <em>large</em> (24 layers, 16 heads) versions. How do these models stack up to mBERT when decoding dependency trees from attention matrices? Might we expect better UUAS for the <em>large</em> model? Below, we plot each model’s accuracy per language, using the <em>MST</em> method.</p>
+
+<p><img src="/images/uuas_total_per_model.png" alt="uuas_per_model" /></p>
+
+<p>There doesn’t appear to be a huge difference here, though the <em>base</em> XLM model tends to decode trees slightly better than mBERT, with 9-2, 2-9, and 11-6 as the top-scoring combinations. Surprisingly, the <em>large</em> model performs worse than this in most cases.</p>
+
+<p>Since we observed strong relationship between head confidence and UUAS, it might be interesting to see if this persists across models.</p>
+
+<p><img src="/images/confidence_corr_model.png" alt="confidence_corr_model" /></p>
+
+<p>Here, we observe similar distributions across models, though the mBERT facet still appears to depict the tighest fit. How do the confidence matrices of both XLM models look like?</p>
+
+<h3 id="xlm-r-b">XLM-R-B</h3>
+
+<p><img src="/images/confidence_xlm_b.png" alt="confidence_xlm_b" /></p>
+
+<h3 id="xlm-r-l">XLM-R-L</h3>
+
+<p><img src="/images/confidence_xlm_l.png" alt="confidence_xlm_l" /></p>
+
+<p>Interestingly, both XLM models feature less confident heads than mBERT does. Another view of the relationship between head probability distributions and UUAS might be offered by looking at the average entropy of a head, as opposed to simply taking the average max probability. Here, we might expect realy confident heads to likewise have a low entropy, in that high probabilities are assigned to single words. Conversely, a head that assigns low probabilities to all words will likely yield a high entropy, which, per information theory, dictates that it is “uncertain”. Below, we plot confidence as a function of mean entropy.</p>
+
+<p><img src="/images/entropy_conf_corr_model.png" alt="entropy_conf" /></p>
+
+<p>The best fit again appears to be for mBERT, which signifies that entropy increases when a head is less confident. Interestingly, the <em>large</em> XLM model does not depict a strong relationship between confidence and entropy, and tends to place the vast majority of its probability density below 0.25.</p>
+
+<p>Now we might ask, what does the relationship between entropy and UUAS look like?</p>
+
+<p><img src="/images/entropy_corr_model.png" alt="entropy_corr" /></p>
+
+<p>Expectedly, we see a strong negative relationship between UUAS and entropy. This trend is almost identical for mBERT and XLM <em>base</em>, with similar distributions of layers. Again, we do not see a strong trend for the <em>large</em> model.</p>
+
+<p>To dive even deeper, we can look at the exact entropy returned by the layer/head combinations of each model.</p>
+
+<h3 id="mbert">mBERT</h3>
+
+<p><img src="/images/entropy_mbert.png" alt="entropy_mbert" /></p>
+
+<h3 id="xlm-r-b-1">XLM-R-B</h3>
+
+<p><img src="/images/entropy_xlm_b.png" alt="entropy_xlm_b" /></p>
+
+<h3 id="xlm-r-l-1">XLM-R-L</h3>
+
+<p><img src="/images/entropy_xlm_l.png" alt="entropy_xlm_l" /></p>
+
+				
+            </div>
+    </div>
+    
+</body>
+<footer>
+</footer>
