@@ -6,27 +6,24 @@ layout: default
 
 <img class="profile-picture" src="eastside_red.jpg">
 
-I am a second-year PhD student in computational linguistics at Uppsala University (🇸🇪), supervised by Joakim Nivre and Anders Søgaard. My research revolves around syntactic parsers and language models: how we can use the former to understand the latter (and vice versa). Before my PhD, I graduated from the [EM-LCT](https://lct-master.org/) program, where I spent my first year at the University of Groningen (🇳🇱) and my second year at the the University of the Basque Country (🇪🇸). I grew up in Western Massachusetts (🇺🇸).
-
-<!-- Hello! I am a computational linguist from Western Massachusetts, USA. I'm currently a first-year PhD student at Uppsala University (🇸🇪), where I focus on multilingual morphosyntatic parsing under the supervision of Joakim Nivre. Before starting my PhD, I graduated from the [EM-LCT](https://lct-master.org/) program, where I spent my first year at the University of Groningen (🇳🇱) and my second year at the the University of the Basque Country (🇪🇸). I wrote my Master's thesis about the utility of multilingual word embeddings in transfer learning, supervised by Eneko Agirre and Gertjan van Noord. -->
-
-<!-- ## research Interests -->
-
-<!-- In general, I am interested in all things concerning cross-lingual, multi-task, and transfer learning - especially when applied to low-resource languages and scenarios. I am also into multilingual word and sentence representations (embeddings, I guess). On occasion, I dabble in computational sociolinguistics.  -->
+I am a third-year PhD student in computational linguistics at Uppsala University (🇸🇪), supervised by Joakim Nivre and Anders Søgaard. My research revolves around syntactic parsers and language models: how we can use the former to understand the latter (and vice versa). Before my PhD, I graduated from the [EM-LCT](https://lct-master.org/) program, where I spent my first year at the University of Groningen (🇳🇱) and my second year at the the University of the Basque Country (🇪🇸). I grew up in Western Massachusetts (🇺🇸).
 
 
 ---
 
 ## publications
+* A Kulmizev, J Nivre: [Schrödinger's Tree -- On Syntax and Neural Language Models](https://arxiv.org/pdf/2110.08887.pdf). Preprint. 
+* M Abdou, A Kulmizev, D Hershcovich, S Frank, E Pavlick, A Søgaard: [Can Language Models Encode Perceptual Structure Without Grounding? A Case Study in Color](https://arxiv.org/pdf/2109.06129.pdf). CoNLL 2021. Punta Cana, DR. 
+* Z Luo, A Kulmizev, X Mao: [Positional Artefacts Propagate Through Masked Language Model Embeddings](https://aclanthology.org/2021.acl-long.413.pdf). ACL 2021. Digital.
 * A Kulmizev, V Ravishankar, M Abdou, A Søgaard, J Nivre: [Attention Can Reflect Syntactic Structure _(If You Let It)_](https://www.aclweb.org/anthology/2021.eacl-main.264.pdf). EACL 2021. Digital. 
 * A Kulmizev, V Ravishankar, M Abdou, J Nivre: [Do Neural Language Models Show Preferences for Syntactic Formalisms?](https://www.aclweb.org/anthology/2020.acl-main.375.pdf). ACL 2020. Digital. 
 * A Kulmizev, M de Lhoneux, J Gontrum, E Fano, J Nivre: [Deep Contextualized Word Embeddings in Transition-Based and Graph-Based Dependency Parsing -- A Tale of Two Parsers Revisited](https://www.aclweb.org/anthology/D19-1277.pdf). EMNLP 2019. Hong Kong.
 * M Abdou, A Kulmizev, F Hill, D Low, A Søgaard: [Higher-order Comparisons of Sentence Encoder Representations](https://www.aclweb.org/anthology/D19-1593.pdf). EMNLP 2019. Hong Kong.
 * M Abdou, A Kulmizev, V Ravishankar, L Abzianidze, J Bos: [What can we learn from Semantic Tagging?](https://www.aclweb.org/anthology/D18-1526.pdf). EMNLP 2018. Brussels, Belgium.
-* M Abdou, A Kulmizev, V Ravishankar: [MGAD: Multilingual Generation of Analogy Datasets](https://www.aclweb.org/anthology/L18-1320.pdf). LREC 2018. Miyazaki, Japan. 
+* M Abdou, A Kulmizev, V Ravishankar: [MGAD: Multilingual Generation of Analogy Datasets](https://www.aclweb.org/anthology/L18-1320.pdf**. LREC 2018. Miyazaki, Japan. 
 
 ## activities
-
+* *August 2021* Participated in the Dagstuhl Seminar on Universals of Linguistic Idiosyncrasy in Multilingual Computational Linguistics. 
 * *April 2021* Oral presentation at EACL 2021. 
 * *June 2020:* Participated in IWPT 2020 Shared Task on Parsing into Enhanced Universal Dependencies. 
 * *February 2020:* Invited talk at 2020 NLPL Winter School, with Joakim Nivre. Skeikampen, Norway. 
