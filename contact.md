@@ -3,10 +3,10 @@ layout: default
 is_contact: true
 ---
 
-* Email: [artur.kulmizev@lingfil.uu.se](mailto:artur.kulmizev@lingfil.uu.se)
+* Email: [artur.kulmizev@kuleuven.be](mailto:artur.kulmizev@kuleuven.be)
 
-* Visiting address: Department of Linguistics and Philology. Engelska Parken, Thunbergsvägen 3H. Uppsala, Sweden. 
+* Visiting address: Mens-Machine Interactie (HCI), Leuven (Arenberg).
 
-* Postal address: Box 635. 751 26 Uppsala, Sweden. 
+* Postal address: Celestijnenlaan 200a - bus 2402, 3001 Leuven, Belgium.
 
 ---
