@@ -6,24 +6,35 @@ layout: default
 
 <img class="profile-picture" src="eastside_red.jpg">
 
-I am a Postdoctoral Researcher at KU Leuven (🇧🇪), working within the LAGoM-NLP group led by Miryam de Lhoneux. My research concerns Multilingual NLP, where I investigate methods for making language representation fair and equitable. In particular, I am interested in how principled data selection and language sampling can be employed as part of the pre-training process, so that models can learn from _better_ data --- rather than simply more of it. In addition, I am also interested in how typological bias is reflected in commonly employed evaluation datasets and metrics, and how this affects our appraisal of multilingual models.
+I am a Postdoctoral Researcher at UC Louvain (Belgium), working within CENTAL (Centre de Traitement automatique du Langage) under supervision of Marie-Catherine de Marneffe. My current research focuses on _explainability_ in the face of _label variation_, as elicited in both humans and LLMs. 
 
-Prior KU Leuven, I earned my PhD in computational linguistics at Uppsala University (🇸🇪), supervised by Joakim Nivre and Anders Søgaard. My dissertation focused on the syntactic knowledge encoded by language models, investigated through the lens of dependency parsing (available [here](https://uu.diva-portal.org/smash/record.jsf?pid=diva2%3A1784732&dswid=-4818)). Before my PhD, I graduated from the [EM-LCT](https://lct-master.org/) program, where I spent my first year at the University of Groningen (🇳🇱) and my second year at the the University of the Basque Country (🇪🇸). I grew up in Western Massachusetts (🇺🇸).
+Prior to my current appointment, I was a Postdoctoral Researcher at KU Leuven (Belgium), working within the LAGoM-NLP group led by Miryam de Lhoneux. There, I co-led a large-scale audit of Wikipedia as an NLP resource and developed the [texieve](https://github.com/akulmizev/texieve) Multilingual NLP toolkit. 
+
+Before that, I earned my PhD in computational linguistics at Uppsala University (Sweden), supervised by Joakim Nivre and Anders Søgaard. My dissertation focused on the syntactic knowledge encoded by language models, investigated through the lens of dependency parsing (available [here](https://uu.diva-portal.org/smash/record.jsf?pid=diva2%3A1784732&dswid=-4818)). 
+
+Before my PhD, I completed the [Erasmus Mundus Language and Communication Technology](https://lct-master.org/) program, spending my first year at the University of Groningen (Netherlands) and my second at the the University of the Basque Country (Spain). 
+
+I am from Western Massachusetts, USA. 
+
+<!-- My research concerns Multilingual NLP, where I investigate methods for making language representation fair and equitable. In particular, I am interested in how principled data selection and language sampling can be employed as part of the pre-training process, so that models can learn from _better_ data --- rather than simply more of it. In addition, I am also interested in how typological bias is reflected in commonly employed evaluation datasets and metrics, and how this affects our appraisal of multilingual models. -->
 
 ---
 
 ## publications
-* A Kulmizev, J Nivre: [Investigating UD Treebanks via Dataset Difficult Measures](https://aclanthology.org/2023.eacl-main.76.pdf). EACL 2023. Dubrovnik, Croatia. 
-* M Abdou, V Ravishankar, A Kulmizev, A Søgaard: [Word Order Does Matter and Shuffled Language Models Know It](https://aclanthology.org/2022.acl-long.476.pdf). ACL 2022. Dublin, Ireland.
-* A Kulmizev, J Nivre: [Schrödinger's Tree -- On Syntax and Neural Language Models](https://www.frontiersin.org/articles/10.3389/frai.2022.796788/full). Frontiers in Artificial Intelligence. 
-* M Abdou, A Kulmizev, D Hershcovich, S Frank, E Pavlick, A Søgaard: [Can Language Models Encode Perceptual Structure Without Grounding? A Case Study in Color](https://arxiv.org/pdf/2109.06129.pdf). CoNLL 2021. Punta Cana, DR. 
-* Z Luo, A Kulmizev, X Mao: [Positional Artefacts Propagate Through Masked Language Model Embeddings](https://aclanthology.org/2021.acl-long.413.pdf). ACL 2021. Digital.
-* A Kulmizev, V Ravishankar, M Abdou, A Søgaard, J Nivre: [Attention Can Reflect Syntactic Structure _(If You Let It)_](https://www.aclweb.org/anthology/2021.eacl-main.264.pdf). EACL 2021. Digital. 
-* A Kulmizev, V Ravishankar, M Abdou, J Nivre: [Do Neural Language Models Show Preferences for Syntactic Formalisms?](https://www.aclweb.org/anthology/2020.acl-main.375.pdf). ACL 2020. Digital. 
-* A Kulmizev, M de Lhoneux, J Gontrum, E Fano, J Nivre: [Deep Contextualized Word Embeddings in Transition-Based and Graph-Based Dependency Parsing -- A Tale of Two Parsers Revisited](https://www.aclweb.org/anthology/D19-1277.pdf). EMNLP 2019. Hong Kong.
-* M Abdou, A Kulmizev, F Hill, D Low, A Søgaard: [Higher-order Comparisons of Sentence Encoder Representations](https://www.aclweb.org/anthology/D19-1593.pdf). EMNLP 2019. Hong Kong.
-* M Abdou, A Kulmizev, V Ravishankar, L Abzianidze, J Bos: [What can we learn from Semantic Tagging?](https://www.aclweb.org/anthology/D18-1526.pdf). EMNLP 2018. Brussels, Belgium.
-* M Abdou, A Kulmizev, V Ravishankar: [MGAD: Multilingual Generation of Analogy Datasets](https://www.aclweb.org/anthology/L18-1320.pdf]. LREC 2018. Miyazaki, Japan. 
+* K Tatariya, **A Kulmizev** *, W Poelman, E Ploeger, M Bollmann, Johannes Bjerva, J Luo, H Lent, M de Lhoneux [How Good is Your Wikipedia? Auditing Data Quality for Low-resource and Multilingual NLP](https://arxiv.org/pdf/2411.05527). Preprint, under review. 
+* **A Kulmizev**, J Nivre: [Investigating UD Treebanks via Dataset Difficult Measures](https://aclanthology.org/2023.eacl-main.76.pdf). EACL 2023. Dubrovnik, Croatia. 
+* M Abdou, V Ravishankar, **A Kulmizev**, A Søgaard: [Word Order Does Matter and Shuffled Language Models Know It](https://aclanthology.org/2022.acl-long.476.pdf). ACL 2022. Dublin, Ireland.
+* **A Kulmizev**, J Nivre: [Schrödinger's Tree -- On Syntax and Neural Language Models](https://www.frontiersin.org/articles/10.3389/frai.2022.796788/full). Frontiers in Artificial Intelligence. 
+* M Abdou, **A Kulmizev**, D Hershcovich, S Frank, E Pavlick, A Søgaard: [Can Language Models Encode Perceptual Structure Without Grounding? A Case Study in Color](https://arxiv.org/pdf/2109.06129.pdf). CoNLL 2021. Punta Cana, DR. 
+* Z Luo, **A Kulmizev**, X Mao: [Positional Artefacts Propagate Through Masked Language Model Embeddings](https://aclanthology.org/2021.acl-long.413.pdf). ACL 2021. Digital.
+* V Ravishankar, **A Kulmizev**, M Abdou, A Søgaard, J Nivre: [Attention Can Reflect Syntactic Structure _(If You Let It)_](https://www.aclweb.org/anthology/2021.eacl-main.264.pdf). EACL 2021. Digital. 
+* **A Kulmizev**, V Ravishankar, M Abdou, J Nivre: [Do Neural Language Models Show Preferences for Syntactic Formalisms?](https://www.aclweb.org/anthology/2020.acl-main.375.pdf). ACL 2020. Digital. 
+* **A Kulmizev**, M de Lhoneux, J Gontrum, E Fano, J Nivre: [Deep Contextualized Word Embeddings in Transition-Based and Graph-Based Dependency Parsing -- A Tale of Two Parsers Revisited](https://www.aclweb.org/anthology/D19-1277.pdf). EMNLP 2019. Hong Kong.
+* M Abdou, **A Kulmizev**, F Hill, D Low, A Søgaard: [Higher-order Comparisons of Sentence Encoder Representations](https://www.aclweb.org/anthology/D19-1593.pdf). EMNLP 2019. Hong Kong.
+* M Abdou, **A Kulmizev**, V Ravishankar, L Abzianidze, J Bos: [What can we learn from Semantic Tagging?](https://www.aclweb.org/anthology/D18-1526.pdf). EMNLP 2018. Brussels, Belgium.
+* M Abdou, **A Kulmizev**, V Ravishankar: [MGAD: Multilingual Generation of Analogy Datasets](https://www.aclweb.org/anthology/L18-1320.pdf]. LREC 2018. Miyazaki, Japan. 
+
+* equal contribution
 
 <!-- ## activities -->
 <!-- * *March 2023*:  -->
