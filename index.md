@@ -21,20 +21,20 @@ I am from Western Massachusetts, USA.
 ---
 
 ## publications
-* K Tatariya, **A Kulmizev** *, W Poelman, E Ploeger, M Bollmann, Johannes Bjerva, J Luo, H Lent, M de Lhoneux [How Good is Your Wikipedia? Auditing Data Quality for Low-resource and Multilingual NLP](https://arxiv.org/pdf/2411.05527). Preprint, under review. 
+* K Tatariya, **A Kulmizev***, W Poelman, E Ploeger, M Bollmann, Johannes Bjerva, J Luo, H Lent, M de Lhoneux [How Good is Your Wikipedia? Auditing Data Quality for Low-resource and Multilingual NLP](https://arxiv.org/pdf/2411.05527). Preprint, under review. 
 * **A Kulmizev**, J Nivre: [Investigating UD Treebanks via Dataset Difficult Measures](https://aclanthology.org/2023.eacl-main.76.pdf). EACL 2023. Dubrovnik, Croatia. 
 * M Abdou, V Ravishankar, **A Kulmizev**, A Søgaard: [Word Order Does Matter and Shuffled Language Models Know It](https://aclanthology.org/2022.acl-long.476.pdf). ACL 2022. Dublin, Ireland.
 * **A Kulmizev**, J Nivre: [Schrödinger's Tree -- On Syntax and Neural Language Models](https://www.frontiersin.org/articles/10.3389/frai.2022.796788/full). Frontiers in Artificial Intelligence. 
 * M Abdou, **A Kulmizev**, D Hershcovich, S Frank, E Pavlick, A Søgaard: [Can Language Models Encode Perceptual Structure Without Grounding? A Case Study in Color](https://arxiv.org/pdf/2109.06129.pdf). CoNLL 2021. Punta Cana, DR. 
 * Z Luo, **A Kulmizev**, X Mao: [Positional Artefacts Propagate Through Masked Language Model Embeddings](https://aclanthology.org/2021.acl-long.413.pdf). ACL 2021. Digital.
-* V Ravishankar, **A Kulmizev**, M Abdou, A Søgaard, J Nivre: [Attention Can Reflect Syntactic Structure _(If You Let It)_](https://www.aclweb.org/anthology/2021.eacl-main.264.pdf). EACL 2021. Digital. 
+* V Ravishankar, **A Kulmizev***, M Abdou, A Søgaard, J Nivre: [Attention Can Reflect Syntactic Structure _(If You Let It)_](https://www.aclweb.org/anthology/2021.eacl-main.264.pdf). EACL 2021. Digital. 
 * **A Kulmizev**, V Ravishankar, M Abdou, J Nivre: [Do Neural Language Models Show Preferences for Syntactic Formalisms?](https://www.aclweb.org/anthology/2020.acl-main.375.pdf). ACL 2020. Digital. 
 * **A Kulmizev**, M de Lhoneux, J Gontrum, E Fano, J Nivre: [Deep Contextualized Word Embeddings in Transition-Based and Graph-Based Dependency Parsing -- A Tale of Two Parsers Revisited](https://www.aclweb.org/anthology/D19-1277.pdf). EMNLP 2019. Hong Kong.
 * M Abdou, **A Kulmizev**, F Hill, D Low, A Søgaard: [Higher-order Comparisons of Sentence Encoder Representations](https://www.aclweb.org/anthology/D19-1593.pdf). EMNLP 2019. Hong Kong.
 * M Abdou, **A Kulmizev**, V Ravishankar, L Abzianidze, J Bos: [What can we learn from Semantic Tagging?](https://www.aclweb.org/anthology/D18-1526.pdf). EMNLP 2018. Brussels, Belgium.
 * M Abdou, **A Kulmizev**, V Ravishankar: [MGAD: Multilingual Generation of Analogy Datasets](https://www.aclweb.org/anthology/L18-1320.pdf]. LREC 2018. Miyazaki, Japan. 
 
-* equal contribution
+\* equal contribution
 
 <!-- ## activities -->
 <!-- * *March 2023*:  -->
