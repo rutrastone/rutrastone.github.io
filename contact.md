@@ -3,10 +3,10 @@ layout: default
 is_contact: true
 ---
 
-* Email: [artur.kulmizev@kuleuven.be](mailto:artur.kulmizev@kuleuven.be)
+* Email: [artur.kulmizev@uclouvain.be](mailto:artur.kulmizev@uclouvain.be)
 
-* Visiting address: Mens-Machine Interactie (HCI), Leuven (Arenberg).
+* Visiting address: Collège Léon Dupriez (étage 3B), Louvain-la-Neuve, Belgium.
 
-* Postal address: Celestijnenlaan 200a - bus 2402, 3001 Leuven, Belgium.
+* Postal address: Pl. Montesquieu 3, 1348 Ottignies-Louvain-la-Neuve, Belgium.
 
 ---
