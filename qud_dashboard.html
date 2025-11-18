@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>QUD Alignment Dashboard for LiveNLI Explanations</title>
+  <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body>
+  <div id="root"></div>
+
+  <script type="text/babel">
+    const { useState, useMemo, useEffect } = React;
+
+    // CONFIGURATION: Set your data file path here
+    const DATA_FILE_PATH = './data/full_alignment_qual_sample.jsonl'; // Change this to your file path or URL
+
+    const AlignmentDashboard = () => {
+      const [data, setData] = useState([]);
+      const [selectedSentId, setSelectedSentId] = useState('');
+      const [selectedParticipantI, setSelectedParticipantI] = useState('');
+      const [selectedParticipantJ, setSelectedParticipantJ] = useState('');
+      const [sentDropdownOpen, setSentDropdownOpen] = useState(false);
+      const [participantIDropdownOpen, setParticipantIDropdownOpen] = useState(false);
+      const [participantJDropdownOpen, setParticipantJDropdownOpen] = useState(false);
+      const [isLoading, setIsLoading] = useState(false);
+      const [error, setError] = useState(null);
+
+      // Load data on mount
+      useEffect(() => {
+        loadData();
+      }, []);
+
+      const loadData = async () => {
+        setIsLoading(true);
+        setError(null);
+
+        try {
+          const response = await fetch(DATA_FILE_PATH);
+          if (!response.ok) {
+            throw new Error(`Failed to load data: ${response.statusText}`);
+          }
+          
+          const text = await response.text();
+          const lines = text.split('\n').filter(line => line.trim());
+          const jsonData = lines.map(line => JSON.parse(line));
+
+          jsonData.forEach(item => {
+            item.qud_i = item.qud_i || [];
+            item.qud_j = item.qud_j || [];
+            item.alignment_i = item.alignment_i || {};
+            item.alignment_j = item.alignment_j || {};
+          });
+
+          setData(jsonData);
+
+          const firstSentId = Array.from(new Set(jsonData.map(item => item.sent_id))).sort()[0];
+          setSelectedSentId(firstSentId);
+
+          const firstItem = jsonData.find(item => item.sent_id === firstSentId);
+          if (firstItem) {
+            setSelectedParticipantI(firstItem.id_i);
+            setSelectedParticipantJ(firstItem.id_j);
+          }
+        } catch (err) {
+          setError(`Error loading data: ${err.message}`);
+          console.error(err);
+        } finally {
+          setIsLoading(false);
+        }
+      };
+
+      const uniqueSentIds = useMemo(() => {
+        const ids = new Set(data.map(item => item.sent_id));
+        return Array.from(ids).sort();
+      }, [data]);
+
+      const availableParticipants = useMemo(() => {
+        if (!selectedSentId) return { all: [], forI: [], forJ: [] };
+
+        const itemsForSent = data.filter(item => item.sent_id === selectedSentId);
+        const all = new Set();
+        const forI = new Set();
+        const forJ = new Set();
+
+        itemsForSent.forEach(item => {
+          all.add(item.id_i);
+          all.add(item.id_j);
+          forI.add(item.id_i);
+          forJ.add(item.id_j);
+        });
+
+        return {
+          all: Array.from(all).sort(),
+          forI: Array.from(forI).sort(),
+          forJ: Array.from(forJ).sort(),
+        };
+      }, [data, selectedSentId]);
+
+      const currentData = useMemo(() => {
+        if (!selectedSentId || !selectedParticipantI || !selectedParticipantJ) return null;
+
+        return (
+          data.find(
+            item =>
+              item.sent_id === selectedSentId &&
+              item.id_i === selectedParticipantI &&
+              item.id_j === selectedParticipantJ
+          ) || null
+        );
+      }, [data, selectedSentId, selectedParticipantI, selectedParticipantJ]);
+
+      const colors = [
+        'bg-blue-400',
+        'bg-green-400',
+        'bg-purple-400',
+        'bg-orange-400',
+        'bg-pink-400',
+        'bg-yellow-400'
+      ];
+
+      const alignmentData = useMemo(() => {
+        if (!currentData) return { qud_i_to_exp_j: {}, qud_j_to_exp_i: {} };
+
+        const map = { qud_i_to_exp_j: {}, qud_j_to_exp_i: {} };
+        let colorIndex = 0;
+
+        const qudI = currentData.qud_i || [];
+        const alignI = currentData.alignment_i || {};
+        const qudJ = currentData.qud_j || [];
+        const alignJ = currentData.alignment_j || {};
+
+        qudI.forEach(qud => {
+          const aligned = alignI[qud] || [];
+          if (aligned.length > 0) {
+            map.qud_i_to_exp_j[qud] = {
+              explanations: aligned,
+              color: colors[colorIndex % colors.length]
+            };
+            colorIndex++;
+          }
+        });
+
+        qudJ.forEach(qud => {
+          const aligned = alignJ[qud] || [];
+          if (aligned.length > 0) {
+            map.qud_j_to_exp_i[qud] = {
+              explanations: aligned,
+              color: colors[colorIndex % colors.length]
+            };
+            colorIndex++;
+          }
+        });
+
+        return map;
+      }, [currentData]);
+
+      const getExplanationColors = (explanation, participantQUDs, alignmentMap) => {
+        if (!participantQUDs || !alignmentMap) return [];
+
+        const matches = [];
+        for (const qud of participantQUDs) {
+          const entry = alignmentMap[qud];
+          if (entry && entry.explanations.includes(explanation)) {
+            matches.push(entry.color);
+          }
+        }
+        return matches;
+      };
+
+      const getQUDColor = (qud, map) => {
+        return map?.[qud]?.color || 'bg-gray-200';
+      };
+
+      if (isLoading) {
+        return (
+          <div className="min-h-screen bg-gray-50 p-8 flex items-center justify-center">
+            <div className="max-w-md w-full bg-white rounded-lg shadow p-8 text-center">
+              <h1 className="text-2xl font-bold text-gray-900 mb-6">NLI Alignment Dashboard</h1>
+              <div className="text-gray-600">Loading data...</div>
+            </div>
+          </div>
+        );
+      }
+
+      if (error) {
+        return (
+          <div className="min-h-screen bg-gray-50 p-8 flex items-center justify-center">
+            <div className="max-w-md w-full bg-white rounded-lg shadow p-8">
+              <h1 className="text-2xl font-bold text-gray-900 mb-6">NLI Alignment Dashboard</h1>
+              <div className="bg-red-50 text-red-700 border border-red-200 px-4 py-3 rounded">
+                {error}
+              </div>
+              <button
+                onClick={loadData}
+                className="mt-4 w-full bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+              >
+                Retry
+              </button>
+            </div>
+          </div>
+        );
+      }
+
+      if (data.length === 0 || !currentData) {
+        return (
+          <div className="min-h-screen bg-gray-50 p-8 flex items-center justify-center">
+            <div className="max-w-md w-full bg-white rounded-lg shadow p-8">
+              <h1 className="text-2xl font-bold text-gray-900 mb-6">NLI Alignment Dashboard</h1>
+              <div className="text-gray-600">No data available. Please check the configuration.</div>
+            </div>
+          </div>
+        );
+      }
+
+      return (
+        <div className="min-h-screen bg-gray-50 p-8">
+          <div className="max-w-7xl mx-auto">
+            <h1 className="text-3xl font-bold text-gray-900 mb-8">NLI Alignment Dashboard</h1>
+
+            {/* Item selectors */}
+            <div className="bg-white rounded-lg shadow p-6 mb-8">
+              <div className="grid grid-cols-3 gap-4">
+
+                {/* NLI Item */}
+                <div className="relative">
+                  <label className="block text-sm mb-2 text-gray-700">NLI Item</label>
+                  <button
+                    onClick={() => setSentDropdownOpen(!sentDropdownOpen)}
+                    className="w-full border bg-white rounded-md px-4 py-2 flex justify-between"
+                  >
+                    <span>{selectedSentId}</span><span>▼</span>
+                  </button>
+                  {sentDropdownOpen && (
+                    <div className="absolute z-10 mt-1 bg-white border rounded-md shadow max-h-60 overflow-auto w-full">
+                      {uniqueSentIds.map(id => (
+                        <button
+                          key={id}
+                          onClick={() => {
+                            setSelectedSentId(id);
+                            setSentDropdownOpen(false);
+                            const first = data.find(d => d.sent_id === id);
+                            if (first) {
+                              setSelectedParticipantI(first.id_i);
+                              setSelectedParticipantJ(first.id_j);
+                            }
+                          }}
+                          className={`w-full px-4 py-2 text-left hover:bg-gray-100 ${id === selectedSentId ? 'bg-blue-50' : ''}`}
+                        >
+                          {id}
+                        </button>
+                      ))}
+                    </div>
+                  )}
+                </div>
+
+                {/* Participant I */}
+                <div className="relative">
+                  <label className="block text-sm mb-2 text-gray-700">Participant I</label>
+                  <button
+                    onClick={() => setParticipantIDropdownOpen(!participantIDropdownOpen)}
+                    className="w-full border bg-white rounded-md px-4 py-2 flex justify-between"
+                  >
+                    <span>{selectedParticipantI}</span><span>▼</span>
+                  </button>
+                  {participantIDropdownOpen && (
+                    <div className="absolute z-10 mt-1 bg-white border rounded-md shadow max-h-60 overflow-auto w-full">
+                      {availableParticipants.all.map(pid => (
+                        <button
+                          key={pid}
+                          onClick={() => {
+                            setSelectedParticipantI(pid);
+                            setParticipantIDropdownOpen(false);
+                          }}
+                          className={`w-full px-4 py-2 text-left hover:bg-gray-100 ${pid === selectedParticipantI ? 'bg-blue-50' : ''}`}
+                        >
+                          {pid}
+                        </button>
+                      ))}
+                    </div>
+                  )}
+                </div>
+
+                {/* Participant J */}
+                <div className="relative">
+                  <label className="block text-sm mb-2 text-gray-700">Participant J</label>
+                  <button
+                    onClick={() => setParticipantJDropdownOpen(!participantJDropdownOpen)}
+                    className="w-full border bg-white rounded-md px-4 py-2 flex justify-between"
+                  >
+                    <span>{selectedParticipantJ}</span><span>▼</span>
+                  </button>
+                  {participantJDropdownOpen && (
+                    <div className="absolute z-10 mt-1 bg-white border rounded-md shadow max-h-60 overflow-auto w-full">
+                      {availableParticipants.all.map(pid => (
+                        <button
+                          key={pid}
+                          onClick={() => {
+                            setSelectedParticipantJ(pid);
+                            setParticipantJDropdownOpen(false);
+                          }}
+                          className={`w-full px-4 py-2 text-left hover:bg-gray-100 ${pid === selectedParticipantJ ? 'bg-blue-50' : ''}`}
+                        >
+                          {pid}
+                        </button>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              </div>
+            </div>
+
+            {/* Context */}
+            <div className="bg-white rounded-lg shadow p-6 mb-8">
+              <h2 className="text-xl font-semibold mb-4">Context</h2>
+              <p><span className="font-medium">Premise:</span> {currentData.premise}</p>
+              <p className="mt-3"><span className="font-medium">Hypothesis:</span> {currentData.hypothesis}</p>
+            </div>
+
+            {/* Participants */}
+            <div className="grid grid-cols-2 gap-8">
+
+              {/* Participant I */}
+              <div className="bg-white rounded-lg shadow p-6">
+                <h2 className="text-xl font-semibold mb-4">
+                  Participant {currentData.id_i}
+                  <span className="text-sm text-gray-500 ml-2">(Label: {currentData.label_i})</span>
+                </h2>
+
+                {/* Explanations */}
+                <h3 className="text-sm font-semibold text-gray-700 mb-3">Explanations</h3>
+                {(currentData.explanation_i || []).map((exp, idx) => {
+                  const colors = getExplanationColors(exp, currentData.qud_j, alignmentData.qud_j_to_exp_i);
+                  const main = colors[0] || 'bg-gray-200';
+
+                  return (
+                    <div key={idx} className={`p-3 mb-2 rounded border-l-4 ${main}`}>
+                      <p className="text-sm">{exp}</p>
+
+                      {/* Color chips */}
+                      {colors.length > 1 && (
+                        <div className="flex gap-1 mt-2">
+                          {colors.slice(1).map((c, i) => (
+                            <div key={i} className={`${c} w-3 h-3 rounded-full`}></div>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                  );
+                })}
+
+                {/* QUDs */}
+                <h3 className="text-sm font-semibold text-gray-700 mt-6 mb-3">QUDs</h3>
+                {currentData.qud_i.map((qud, idx) => {
+                  const c = getQUDColor(qud, alignmentData.qud_i_to_exp_j);
+                  return (
+                    <div key={idx} className={`p-3 mb-2 rounded border-l-4 ${c}`}>{qud}</div>
+                  );
+                })}
+              </div>
+
+              {/* Participant J */}
+              <div className="bg-white rounded-lg shadow p-6">
+                <h2 className="text-xl font-semibold mb-4">
+                  Participant {currentData.id_j}
+                  <span className="text-sm text-gray-500 ml-2">(Label: {currentData.label_j})</span>
+                </h2>
+
+                {/* Explanations */}
+                <h3 className="text-sm font-semibold text-gray-700 mb-3">Explanations</h3>
+                {(currentData.explanation_j || []).map((exp, idx) => {
+                  const colors = getExplanationColors(exp, currentData.qud_i, alignmentData.qud_i_to_exp_j);
+                  const main = colors[0] || 'bg-gray-200';
+
+                  return (
+                    <div key={idx} className={`p-3 mb-2 rounded border-l-4 ${main}`}>
+                      <p className="text-sm">{exp}</p>
+
+                      {colors.length > 1 && (
+                        <div className="flex gap-1 mt-2">
+                          {colors.slice(1).map((c, i) => (
+                            <div key={i} className={`${c} w-3 h-3 rounded-full`}></div>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                  );
+                })}
+
+                {/* QUDs */}
+                <h3 className="text-sm font-semibold text-gray-700 mt-6 mb-3">QUDs</h3>
+                {currentData.qud_j.map((qud, idx) => {
+                  const c = getQUDColor(qud, alignmentData.qud_j_to_exp_i);
+                  return (
+                    <div key={idx} className={`p-3 mb-2 rounded border-l-4 ${c}`}>{qud}</div>
+                  );
+                })}
+              </div>
+            </div>
+          </div>
+        </div>
+      );
+    };
+
+    ReactDOM.render(<AlignmentDashboard />, document.getElementById('root'));
+  </script>
+</body>
+</html>
