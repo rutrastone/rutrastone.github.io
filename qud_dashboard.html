@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>QUD Alignment Dashboard for LiveNLI Explanations</title>
+  <title>NLI Alignment Dashboard</title>
   <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
   <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -13,10 +13,10 @@
   <div id="root"></div>
 
   <script type="text/babel">
-    const { useState, useMemo, useEffect } = React;
+    const { useState, useMemo, useEffect, useRef } = React;
 
     // CONFIGURATION: Set your data file path here
-    const DATA_FILE_PATH = './data/full_alignment_qual_sample.jsonl'; // Change this to your file path or URL
+    const DATA_FILE_PATH = './data/full_alignment.jsonl';
 
     const AlignmentDashboard = () => {
       const [data, setData] = useState([]);
@@ -28,6 +28,13 @@
       const [participantJDropdownOpen, setParticipantJDropdownOpen] = useState(false);
       const [isLoading, setIsLoading] = useState(false);
       const [error, setError] = useState(null);
+      const [hoveredQud, setHoveredQud] = useState(null); // {side: 'i'|'j', index: number}
+
+      // Refs for sentence elements to calculate line positions
+      const sentenceRefsI = useRef([]);
+      const sentenceRefsJ = useRef([]);
+      const containerRef = useRef(null);
+      const participantsGridRef = useRef(null);
 
       // Load data on mount
       useEffect(() => {
@@ -43,17 +50,10 @@
           if (!response.ok) {
             throw new Error(`Failed to load data: ${response.statusText}`);
           }
-          
+
           const text = await response.text();
           const lines = text.split('\n').filter(line => line.trim());
           const jsonData = lines.map(line => JSON.parse(line));
-
-          jsonData.forEach(item => {
-            item.qud_i = item.qud_i || [];
-            item.qud_j = item.qud_j || [];
-            item.alignment_i = item.alignment_i || {};
-            item.alignment_j = item.alignment_j || {};
-          });
 
           setData(jsonData);
 
@@ -79,25 +79,17 @@
       }, [data]);
 
       const availableParticipants = useMemo(() => {
-        if (!selectedSentId) return { all: [], forI: [], forJ: [] };
+        if (!selectedSentId) return { all: [] };
 
         const itemsForSent = data.filter(item => item.sent_id === selectedSentId);
         const all = new Set();
-        const forI = new Set();
-        const forJ = new Set();
 
         itemsForSent.forEach(item => {
           all.add(item.id_i);
           all.add(item.id_j);
-          forI.add(item.id_i);
-          forJ.add(item.id_j);
         });
 
-        return {
-          all: Array.from(all).sort(),
-          forI: Array.from(forI).sort(),
-          forJ: Array.from(forJ).sort(),
-        };
+        return { all: Array.from(all).sort() };
       }, [data, selectedSentId]);
 
       const currentData = useMemo(() => {
@@ -113,66 +105,126 @@
         );
       }, [data, selectedSentId, selectedParticipantI, selectedParticipantJ]);
 
-      const colors = [
-        'bg-blue-400',
-        'bg-green-400',
-        'bg-purple-400',
-        'bg-orange-400',
-        'bg-pink-400',
-        'bg-yellow-400'
-      ];
+      // Removed colors array and getQUDColor function - now using a fixed blue highlight on hover
 
-      const alignmentData = useMemo(() => {
-        if (!currentData) return { qud_i_to_exp_j: {}, qud_j_to_exp_i: {} };
+      // Get lines to draw based on hovered QUD
+      const getLinesToDraw = () => {
+        // Use the new, more specific ref for coordinates
+        if (!hoveredQud || !participantsGridRef.current) return [];
 
-        const map = { qud_i_to_exp_j: {}, qud_j_to_exp_i: {} };
-        let colorIndex = 0;
+        const lines = [];
+        const hoveredSide = hoveredQud.side;
+        const qudIdx = hoveredQud.index;
+        const qud = hoveredSide === 'i'
+          ? currentData.explanations.i.quds[qudIdx]
+          : currentData.explanations.j.quds[qudIdx];
 
-        const qudI = currentData.qud_i || [];
-        const alignI = currentData.alignment_i || {};
-        const qudJ = currentData.qud_j || [];
-        const alignJ = currentData.alignment_j || {};
+        // Reference point for coordinates
+        const parentRect = participantsGridRef.current.getBoundingClientRect();
 
-        qudI.forEach(qud => {
-          const aligned = alignI[qud] || [];
-          if (aligned.length > 0) {
-            map.qud_i_to_exp_j[qud] = {
-              explanations: aligned,
-              color: colors[colorIndex % colors.length]
-            };
-            colorIndex++;
-          }
+        // For each target index, draw a line if there's alignment data
+        qud.target_indices.forEach(targetIdx => {
+          qud.source_indices.forEach(sourceIdx => {
+            const alignmentKey = `${sourceIdx}-${targetIdx}`;
+            if (qud.alignments.hasOwnProperty(alignmentKey)) {
+              const isAligned = qud.alignments[alignmentKey];
+
+              const sourceRef = hoveredSide === 'i'
+                ? sentenceRefsI.current[sourceIdx]
+                : sentenceRefsJ.current[sourceIdx];
+              const targetRef = hoveredSide === 'i'
+                ? sentenceRefsJ.current[targetIdx]
+                : sentenceRefsI.current[targetIdx];
+
+              if (sourceRef && targetRef) {
+                const sourceRect = sourceRef.getBoundingClientRect();
+                const targetRect = targetRef.getBoundingClientRect();
+
+                // Calculate line endpoints relative to the parent grid container
+                // Y-coordinates: center of the sentence box
+                const y1 = sourceRect.top + sourceRect.height / 2 - parentRect.top;
+                const y2 = targetRect.top + targetRect.height / 2 - parentRect.top;
+
+                let x1, x2;
+
+                if (hoveredSide === 'i') {
+                  // Source (i) is on the left: Start line at source's right edge
+                  x1 = sourceRect.right - parentRect.left;
+                  // Target (j) is on the right: End line at target's left edge
+                  x2 = targetRect.left - parentRect.left;
+                } else { // hoveredSide === 'j'
+                  // Source (j) is on the right: Start line at source's left edge
+                  x1 = sourceRect.left - parentRect.left;
+                  // Target (i) is on the left: End line at target's right edge
+                  x2 = targetRect.right - parentRect.left;
+                }
+
+                lines.push({
+                  x1, y1, x2, y2,
+                  color: isAligned ? '#60a5fa' : '#f87171', // blue-400 or red-400
+                  strokeWidth: 2
+                });
+              }
+            }
+          });
         });
 
-        qudJ.forEach(qud => {
-          const aligned = alignJ[qud] || [];
-          if (aligned.length > 0) {
-            map.qud_j_to_exp_i[qud] = {
-              explanations: aligned,
-              color: colors[colorIndex % colors.length]
-            };
-            colorIndex++;
-          }
-        });
-
-        return map;
-      }, [currentData]);
-
-      const getExplanationColors = (explanation, participantQUDs, alignmentMap) => {
-        if (!participantQUDs || !alignmentMap) return [];
-
-        const matches = [];
-        for (const qud of participantQUDs) {
-          const entry = alignmentMap[qud];
-          if (entry && entry.explanations.includes(explanation)) {
-            matches.push(entry.color);
-          }
-        }
-        return matches;
+        return lines;
       };
 
-      const getQUDColor = (qud, map) => {
-        return map?.[qud]?.color || 'bg-gray-200';
+      const linesToDraw = hoveredQud ? getLinesToDraw() : [];
+      const getSentenceHighlight = (side, sentenceIdx) => {
+        if (!hoveredQud) return '';
+
+        const hoveredSide = hoveredQud.side;
+        const qudIdx = hoveredQud.index;
+        const targetSide = side;
+
+        if (hoveredSide === 'i') {
+          const qud = currentData.explanations.i.quds[qudIdx];
+
+          // Source sentences (same side as QUD) - always blue
+          if (targetSide === 'i' && qud.source_indices.includes(sentenceIdx)) {
+            return 'bg-blue-300 ring-2 ring-blue-500';
+          }
+
+          // Target sentences (opposite side) - check alignment
+          if (targetSide === 'j' && qud.target_indices.includes(sentenceIdx)) {
+            const alignmentKey = `${qud.source_indices[0]}-${sentenceIdx}`;
+            const alignment = qud.alignments[alignmentKey];
+
+            if (alignment === true) {
+              return 'bg-blue-300 ring-2 ring-blue-500';
+            } else if (alignment === false) {
+              return 'bg-red-300 ring-2 ring-red-500';
+            } else {
+              return 'bg-gray-300 ring-2 ring-gray-500';
+            }
+          }
+        } else if (hoveredSide === 'j') {
+          const qud = currentData.explanations.j.quds[qudIdx];
+
+          // Source sentences (same side as QUD) - always blue
+          if (targetSide === 'j' && qud.source_indices.includes(sentenceIdx)) {
+            return 'bg-blue-300 ring-2 ring-blue-500';
+          }
+
+          // Target sentences (opposite side) - check alignment
+          if (targetSide === 'i' && qud.target_indices.includes(sentenceIdx)) {
+            const alignmentKey = `${qud.source_indices[0]}-${sentenceIdx}`;
+            const alignment = qud.alignments[alignmentKey];
+
+            if (alignment === true) {
+              return 'bg-blue-300 ring-2 ring-blue-500';
+            } else if (alignment === false) {
+              return 'bg-red-300 ring-2 ring-red-500';
+            } else {
+              return 'bg-gray-300 ring-2 ring-gray-500';
+            }
+          }
+        }
+
+        return '';
       };
 
       if (isLoading) {
@@ -217,25 +269,25 @@
       }
 
       return (
-        <div className="min-h-screen bg-gray-50 p-8">
-          <div className="max-w-7xl mx-auto">
-            <h1 className="text-3xl font-bold text-gray-900 mb-8">NLI Alignment Dashboard</h1>
+        <div className="min-h-screen bg-gray-50 p-8" ref={containerRef}>
+          <div className="max-w-7xl mx-auto relative">
+            <h1 className="text-3xl font-bold text-gray-900 mb-8 relative" style={{ zIndex: 2 }}>NLI Alignment Dashboard</h1>
 
-            {/* Item selectors */}
-            <div className="bg-white rounded-lg shadow p-6 mb-8">
+            {/* Item selectors - Increased z-index to 20 for dropdowns */}
+            <div className="bg-white rounded-lg shadow p-6 mb-8 relative" style={{ zIndex: 20 }}>
               <div className="grid grid-cols-3 gap-4">
 
                 {/* NLI Item */}
                 <div className="relative">
-                  <label className="block text-sm mb-2 text-gray-700">NLI Item</label>
+                  <label className="block text-sm mb-2 text-gray-700 font-medium">NLI Item</label>
                   <button
                     onClick={() => setSentDropdownOpen(!sentDropdownOpen)}
-                    className="w-full border bg-white rounded-md px-4 py-2 flex justify-between"
+                    className="w-full border border-gray-300 bg-white rounded-md px-4 py-2 flex justify-between hover:border-gray-400"
                   >
                     <span>{selectedSentId}</span><span>▼</span>
                   </button>
                   {sentDropdownOpen && (
-                    <div className="absolute z-10 mt-1 bg-white border rounded-md shadow max-h-60 overflow-auto w-full">
+                    <div className="absolute z-30 mt-1 bg-white border border-gray-300 rounded-md shadow-lg max-h-60 overflow-auto w-full">
                       {uniqueSentIds.map(id => (
                         <button
                           key={id}
@@ -259,15 +311,15 @@
 
                 {/* Participant I */}
                 <div className="relative">
-                  <label className="block text-sm mb-2 text-gray-700">Participant I</label>
+                  <label className="block text-sm mb-2 text-gray-700 font-medium">Participant I</label>
                   <button
                     onClick={() => setParticipantIDropdownOpen(!participantIDropdownOpen)}
-                    className="w-full border bg-white rounded-md px-4 py-2 flex justify-between"
+                    className="w-full border border-gray-300 bg-white rounded-md px-4 py-2 flex justify-between hover:border-gray-400"
                   >
                     <span>{selectedParticipantI}</span><span>▼</span>
                   </button>
                   {participantIDropdownOpen && (
-                    <div className="absolute z-10 mt-1 bg-white border rounded-md shadow max-h-60 overflow-auto w-full">
+                    <div className="absolute z-30 mt-1 bg-white border border-gray-300 rounded-md shadow-lg max-h-60 overflow-auto w-full">
                       {availableParticipants.all.map(pid => (
                         <button
                           key={pid}
@@ -286,15 +338,15 @@
 
                 {/* Participant J */}
                 <div className="relative">
-                  <label className="block text-sm mb-2 text-gray-700">Participant J</label>
+                  <label className="block text-sm mb-2 text-gray-700 font-medium">Participant J</label>
                   <button
                     onClick={() => setParticipantJDropdownOpen(!participantJDropdownOpen)}
-                    className="w-full border bg-white rounded-md px-4 py-2 flex justify-between"
+                    className="w-full border border-gray-300 bg-white rounded-md px-4 py-2 flex justify-between hover:border-gray-400"
                   >
                     <span>{selectedParticipantJ}</span><span>▼</span>
                   </button>
                   {participantJDropdownOpen && (
-                    <div className="absolute z-10 mt-1 bg-white border rounded-md shadow max-h-60 overflow-auto w-full">
+                    <div className="absolute z-30 mt-1 bg-white border border-gray-300 rounded-md shadow-lg max-h-60 overflow-auto w-full">
                       {availableParticipants.all.map(pid => (
                         <button
                           key={pid}
@@ -314,90 +366,145 @@
             </div>
 
             {/* Context */}
-            <div className="bg-white rounded-lg shadow p-6 mb-8">
-              <h2 className="text-xl font-semibold mb-4">Context</h2>
-              <p><span className="font-medium">Premise:</span> {currentData.premise}</p>
-              <p className="mt-3"><span className="font-medium">Hypothesis:</span> {currentData.hypothesis}</p>
+            <div className="bg-white rounded-lg shadow p-6 mb-8 relative" style={{ zIndex: 2 }}>
+              <h2 className="text-xl font-semibold mb-4 text-gray-900">Context</h2>
+              <div className="space-y-3">
+                <div>
+                  <span className="font-medium text-gray-700">Premise:</span>
+                  <p className="text-gray-600 mt-1">{currentData.premise}</p>
+                </div>
+                <div>
+                  <span className="font-medium text-gray-700">Hypothesis:</span>
+                  <p className="text-gray-600 mt-1">{currentData.hypothesis}</p>
+                </div>
+              </div>
             </div>
 
             {/* Participants */}
-            <div className="grid grid-cols-2 gap-8">
+            <div className="grid grid-cols-2 gap-8 relative" style={{ zIndex: 2 }} ref={participantsGridRef}>
+
+              {/* SVG overlay for lines - Increased z-index to 10 and moved here */}
+              {linesToDraw.length > 0 && (
+                <svg
+                  className="absolute top-0 left-0 w-full h-full pointer-events-none"
+                  style={{ zIndex: 10 }}
+                >
+                  {linesToDraw.map((line, idx) => (
+                    <line
+                      key={idx}
+                      x1={line.x1}
+                      y1={line.y1}
+                      x2={line.x2}
+                      y2={line.y2}
+                      stroke={line.color}
+                      strokeWidth={line.strokeWidth}
+                      strokeDasharray="5,5"
+                    />
+                  ))}
+                </svg>
+              )}
 
               {/* Participant I */}
               <div className="bg-white rounded-lg shadow p-6">
-                <h2 className="text-xl font-semibold mb-4">
+                <h2 className="text-xl font-semibold mb-4 text-gray-900">
                   Participant {currentData.id_i}
-                  <span className="text-sm text-gray-500 ml-2">(Label: {currentData.label_i})</span>
+                  <span className="text-sm text-gray-500 ml-2 font-normal">(Label: {currentData.label_i})</span>
                 </h2>
 
                 {/* Explanations */}
                 <h3 className="text-sm font-semibold text-gray-700 mb-3">Explanations</h3>
-                {(currentData.explanation_i || []).map((exp, idx) => {
-                  const colors = getExplanationColors(exp, currentData.qud_j, alignmentData.qud_j_to_exp_i);
-                  const main = colors[0] || 'bg-gray-200';
-
-                  return (
-                    <div key={idx} className={`p-3 mb-2 rounded border-l-4 ${main}`}>
-                      <p className="text-sm">{exp}</p>
-
-                      {/* Color chips */}
-                      {colors.length > 1 && (
-                        <div className="flex gap-1 mt-2">
-                          {colors.slice(1).map((c, i) => (
-                            <div key={i} className={`${c} w-3 h-3 rounded-full`}></div>
-                          ))}
-                        </div>
-                      )}
-                    </div>
-                  );
-                })}
+                <div className="space-y-2 mb-6">
+                  {currentData.explanations.i.sentences.map((sentence, idx) => {
+                    const highlight = getSentenceHighlight('i', idx);
+                    return (
+                      <div
+                        key={idx}
+                        ref={el => sentenceRefsI.current[idx] = el}
+                        className={`p-3 rounded border-l-4 border-gray-300 bg-gray-50 transition-all duration-200 ${highlight}`}
+                      >
+                        <p className="text-sm text-gray-700">{sentence}</p>
+                      </div>
+                    );
+                  })}
+                </div>
 
                 {/* QUDs */}
-                <h3 className="text-sm font-semibold text-gray-700 mt-6 mb-3">QUDs</h3>
-                {currentData.qud_i.map((qud, idx) => {
-                  const c = getQUDColor(qud, alignmentData.qud_i_to_exp_j);
-                  return (
-                    <div key={idx} className={`p-3 mb-2 rounded border-l-4 ${c}`}>{qud}</div>
-                  );
-                })}
+                <h3 className="text-sm font-semibold text-gray-700 mb-3">Questions Under Discussion</h3>
+                <div className="space-y-2">
+                  {currentData.explanations.i.quds.map((qud, idx) => {
+                    const isHovered = hoveredQud?.side === 'i' && hoveredQud?.index === idx;
+                    return (
+                      <div
+                        key={idx}
+                        className={`p-3 rounded border-l-4 cursor-pointer transition-all duration-200 ${
+                          isHovered ? 'bg-blue-100 border-blue-500' : 'bg-gray-50 border-gray-300'
+                        }`}
+                        onMouseEnter={() => setHoveredQud({ side: 'i', index: idx })}
+                        onMouseLeave={() => setHoveredQud(null)}
+                      >
+                        <p className="text-sm text-gray-900">{qud.text}</p>
+                      </div>
+                    );
+                  })}
+                </div>
               </div>
 
               {/* Participant J */}
               <div className="bg-white rounded-lg shadow p-6">
-                <h2 className="text-xl font-semibold mb-4">
+                <h2 className="text-xl font-semibold mb-4 text-gray-900">
                   Participant {currentData.id_j}
-                  <span className="text-sm text-gray-500 ml-2">(Label: {currentData.label_j})</span>
+                  <span className="text-sm text-gray-500 ml-2 font-normal">(Label: {currentData.label_j})</span>
                 </h2>
 
                 {/* Explanations */}
                 <h3 className="text-sm font-semibold text-gray-700 mb-3">Explanations</h3>
-                {(currentData.explanation_j || []).map((exp, idx) => {
-                  const colors = getExplanationColors(exp, currentData.qud_i, alignmentData.qud_i_to_exp_j);
-                  const main = colors[0] || 'bg-gray-200';
-
-                  return (
-                    <div key={idx} className={`p-3 mb-2 rounded border-l-4 ${main}`}>
-                      <p className="text-sm">{exp}</p>
-
-                      {colors.length > 1 && (
-                        <div className="flex gap-1 mt-2">
-                          {colors.slice(1).map((c, i) => (
-                            <div key={i} className={`${c} w-3 h-3 rounded-full`}></div>
-                          ))}
-                        </div>
-                      )}
-                    </div>
-                  );
-                })}
+                <div className="space-y-2 mb-6">
+                  {currentData.explanations.j.sentences.map((sentence, idx) => {
+                    const highlight = getSentenceHighlight('j', idx);
+                    return (
+                      <div
+                        key={idx}
+                        ref={el => sentenceRefsJ.current[idx] = el}
+                        className={`p-3 rounded border-l-4 border-gray-300 bg-gray-50 transition-all duration-200 ${highlight}`}
+                      >
+                        <p className="text-sm text-gray-700">{sentence}</p>
+                      </div>
+                    );
+                  })}
+                </div>
 
                 {/* QUDs */}
-                <h3 className="text-sm font-semibold text-gray-700 mt-6 mb-3">QUDs</h3>
-                {currentData.qud_j.map((qud, idx) => {
-                  const c = getQUDColor(qud, alignmentData.qud_j_to_exp_i);
-                  return (
-                    <div key={idx} className={`p-3 mb-2 rounded border-l-4 ${c}`}>{qud}</div>
-                  );
-                })}
+                <h3 className="text-sm font-semibold text-gray-700 mb-3">Questions Under Discussion</h3>
+                <div className="space-y-2">
+                  {currentData.explanations.j.quds.map((qud, idx) => {
+                    const isHovered = hoveredQud?.side === 'j' && hoveredQud?.index === idx;
+                    return (
+                      <div
+                        key={idx}
+                        className={`p-3 rounded border-l-4 cursor-pointer transition-all duration-200 ${
+                          isHovered ? 'bg-blue-100 border-blue-500' : 'bg-gray-50 border-gray-300'
+                        }`}
+                        onMouseEnter={() => setHoveredQud({ side: 'j', index: idx })}
+                        onMouseLeave={() => setHoveredQud(null)}
+                      >
+                        <p className="text-sm text-gray-900">{qud.text}</p>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            </div>
+
+            {/* Legend */}
+            <div className="bg-white rounded-lg shadow p-6 mt-8 relative" style={{ zIndex: 2 }}>
+              <h3 className="text-sm font-semibold text-gray-700 mb-3">Legend</h3>
+              <div className="space-y-2 text-sm text-gray-600">
+                <p><span className="inline-block w-4 h-4 bg-blue-300 ring-2 ring-blue-500 rounded mr-2"></span>Blue highlight: Source sentence or aligned target sentence</p>
+                <p><span className="inline-block w-4 h-4 bg-red-300 ring-2 ring-red-500 rounded mr-2"></span>Red highlight: Non-aligned target sentence</p>
+                <p><span className="inline-block w-4 h-4 bg-gray-300 ring-2 ring-gray-500 rounded mr-2"></span>Gray highlight: Target sentence with no alignment data</p>
+                <p><span className="inline-block w-16 h-0.5 bg-blue-400 mr-2" style={{ borderTop: '2px dashed #60a5fa' }}></span>Blue dashed line: Aligned sentences</p>
+                <p><span className="inline-block w-16 h-0.5 bg-red-400 mr-2" style={{ borderTop: '2px dashed #f87171' }}></span>Red dashed line: Non-aligned sentences</p>
+                <p className="mt-3 italic">Hover over a QUD to see which sentences it relates to.</p>
               </div>
             </div>
           </div>
