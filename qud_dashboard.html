@@ -16,7 +16,7 @@
     const { useState, useMemo, useEffect, useRef } = React;
 
     // CONFIGURATION: Set your data file path here
-    const DATA_FILE_PATH = './data/full_alignment.jsonl';
+    const DATA_FILE_PATH = './data/full_alignment_with_scores.jsonl';
 
     const AlignmentDashboard = () => {
       const [data, setData] = useState([]);
@@ -104,8 +104,6 @@
           ) || null
         );
       }, [data, selectedSentId, selectedParticipantI, selectedParticipantJ]);
-
-      // Removed colors array and getQUDColor function - now using a fixed blue highlight on hover
 
       // Get lines to draw based on hovered QUD
       const getLinesToDraw = () => {
@@ -273,7 +271,7 @@
           <div className="max-w-7xl mx-auto relative">
             <h1 className="text-3xl font-bold text-gray-900 mb-8 relative" style={{ zIndex: 2 }}>NLI Alignment Dashboard</h1>
 
-            {/* Item selectors - Increased z-index to 20 for dropdowns */}
+            {/* Item selectors - z-index 20 for dropdowns */}
             <div className="bg-white rounded-lg shadow p-6 mb-8 relative" style={{ zIndex: 20 }}>
               <div className="grid grid-cols-3 gap-4">
 
@@ -380,10 +378,28 @@
               </div>
             </div>
 
+            {/* Overall Alignment Scores - UPDATED */}
+            <div className="bg-white rounded-lg shadow p-6 mb-8 relative" style={{ zIndex: 2 }}>
+              <h2 className="text-xl font-semibold mb-4 text-gray-900">Overall Alignment Scores</h2>
+              <div className="grid grid-cols-2 gap-4 text-lg">
+                <div>
+                  <span className="font-medium text-gray-700">Coarse Alignment:</span>
+                  <span className={`ml-2 font-bold ${currentData.coarse_alignment ? 'text-green-600' : 'text-red-600'}`}>
+                    {/* EMOJI AND TEXT REPLACEMENT HERE */}
+                    {currentData.coarse_alignment ? '✅ Aligned' : '❌ Misaligned'}
+                  </span>
+                </div>
+                <div>
+                  <span className="font-medium text-gray-700">Fine Alignment:</span>
+                  <span className="ml-2 font-bold text-blue-600">{currentData.fine_alignment.toFixed(2)}</span>
+                </div>
+              </div>
+            </div>
+
             {/* Participants */}
             <div className="grid grid-cols-2 gap-8 relative" style={{ zIndex: 2 }} ref={participantsGridRef}>
 
-              {/* SVG overlay for lines - Increased z-index to 10 and moved here */}
+              {/* SVG overlay for lines - z-index 10 */}
               {linesToDraw.length > 0 && (
                 <svg
                   className="absolute top-0 left-0 w-full h-full pointer-events-none"
@@ -408,7 +424,10 @@
               <div className="bg-white rounded-lg shadow p-6">
                 <h2 className="text-xl font-semibold mb-4 text-gray-900">
                   Participant {currentData.id_i}
-                  <span className="text-sm text-gray-500 ml-2 font-normal">(Label: {currentData.label_i})</span>
+                  {/* Participant-specific alignment */}
+                  <span className="text-sm text-gray-500 ml-2 font-normal">
+                    (Label: {currentData.label_i}, Alignment: {currentData.explanations.i.alignment.toFixed(2)})
+                  </span>
                 </h2>
 
                 {/* Explanations */}
@@ -453,7 +472,10 @@
               <div className="bg-white rounded-lg shadow p-6">
                 <h2 className="text-xl font-semibold mb-4 text-gray-900">
                   Participant {currentData.id_j}
-                  <span className="text-sm text-gray-500 ml-2 font-normal">(Label: {currentData.label_j})</span>
+                  {/* Participant-specific alignment */}
+                  <span className="text-sm text-gray-500 ml-2 font-normal">
+                    (Label: {currentData.label_j}, Alignment: {currentData.explanations.j.alignment.toFixed(2)})
+                  </span>
                 </h2>
 
                 {/* Explanations */}
